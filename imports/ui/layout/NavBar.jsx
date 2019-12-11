@@ -21,11 +21,20 @@ function NavBar() {
       </button>
       <div className="collapse navbar-collapse justify-content-between" id="navbarNav">
         <ul className="navbar-nav">
-          <CustomLink to="/todos" label="Todos" />
-          <CustomLink to="/projects" label="Projects" />
+          {Meteor.userId() && (
+            // eslint-disable-next-line react/jsx-fragments
+            <React.Fragment>
+              <CustomLink to="/todos" label="Todos" />
+              <CustomLink to="/projects" label="Projects" />
+            </React.Fragment>
+          )}
         </ul>
         <ul className="navbar-nav">
-          {Meteor.userId() ? <CustomLink to="/profile" label="Profile" />: <CustomLink to="/login" label="Login" />}
+          {Meteor.userId() ? (
+            <CustomLink to="/profile" label="Profile" />
+          ) : (
+            <CustomLink to="/login" label="Login" />
+          )}
         </ul>
       </div>
     </nav>

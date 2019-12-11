@@ -2,6 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 function Projects() {
+  // eslint-disable-next-line no-restricted-globals
   const params = location.pathname.split('/');
   return (
     <div className="container m-3">

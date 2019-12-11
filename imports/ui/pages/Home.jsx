@@ -17,7 +17,7 @@ function Home() {
               backgroundImage: "url('https://source.unsplash.com/bF2vsubyHcQ/1920x1080')",
             }}
           >
-            <div className="carousel-caption d-none d-md-block">
+            <div className="carousel-caption">
               <h2 className="display-4">First Slide</h2>
               <p className="lead">This is a description for the first slide.</p>
             </div>
@@ -28,7 +28,7 @@ function Home() {
               backgroundImage: "url('https://source.unsplash.com/bF2vsubyHcQ/1920x1080')",
             }}
           >
-            <div className="carousel-caption d-none d-md-block">
+            <div className="carousel-caption">
               <h2 className="display-4">Second Slide</h2>
               <p className="lead">This is a description for the second slide.</p>
             </div>
@@ -39,7 +39,7 @@ function Home() {
               backgroundImage: "url('https://source.unsplash.com/bF2vsubyHcQ/1920x1080')",
             }}
           >
-            <div className="carousel-caption d-none d-md-block">
+            <div className="carousel-caption">
               <h2 className="display-4">Third Slide</h2>
               <p className="lead">This is a description for the third slide.</p>
             </div>
