@@ -8,6 +8,8 @@ import ResetPassword from '../pages/ResetPassword.jsx';
 import Todos from '../pages/Todos.jsx';
 import Projects from '../pages/Projects.jsx';
 import Profile from '../pages/Profile.jsx';
+import VerifyEmail from '../pages/VerifyEmail.jsx';
+import Home from '../pages/Home.jsx';
 
 function Routes() {
   return (
@@ -29,7 +31,10 @@ function Routes() {
           <Route exact path="/forgot-password">
             <ForgotPassword />
           </Route>
-          <Route exact path="/todos">
+          <Route exact path="/verify-email">
+            <VerifyEmail />
+          </Route>
+          <Route path="/todos">
             <Todos />
           </Route>
           <Route exact path="/projects">
@@ -39,7 +44,7 @@ function Routes() {
             <Profile />
           </Route>
           <Route exact path="/">
-            <div>Home Page</div>
+            <Home />
           </Route>
         </Switch>
       </div>

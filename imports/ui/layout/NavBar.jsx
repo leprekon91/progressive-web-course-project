@@ -23,7 +23,6 @@ function NavBar() {
         <ul className="navbar-nav">
           <CustomLink to="/todos" label="Todos" />
           <CustomLink to="/projects" label="Projects" />
-          <CustomLink to="/about" label="About" />
         </ul>
         <ul className="navbar-nav">
           {Meteor.userId() ? <CustomLink to="/profile" label="Profile" />: <CustomLink to="/login" label="Login" />}
