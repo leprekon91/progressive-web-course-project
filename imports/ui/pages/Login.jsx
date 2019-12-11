@@ -21,7 +21,7 @@ function Login() {
                     required
                     autoFocus
                   />
-                  <label for="inputEmail">Email address</label>
+                  <label htmlFor="inputEmail">Email address</label>
                 </div>
 
                 <div className="form-label-group">
@@ -32,12 +32,12 @@ function Login() {
                     placeholder="Password"
                     required
                   />
-                  <label for="inputPassword">Password</label>
+                  <label htmlFor="inputPassword">Password</label>
                 </div>
 
                 <div className="custom-control custom-checkbox mb-3">
                   <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                  <label className="custom-control-label" for="customCheck1">
+                  <label className="custom-control-label" htmlFor="customCheck1">
                     Remember password
                   </label>
                 </div>
