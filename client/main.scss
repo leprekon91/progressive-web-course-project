@@ -1,1 +1,6 @@
 @import '{}/node_modules/bootstrap/scss/bootstrap';
+@import '../imports/ui/pages/styles/Login.scss';
+
+body {
+  background-color: #efefef;
+}

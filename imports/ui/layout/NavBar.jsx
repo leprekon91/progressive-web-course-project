@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import CustomLink from './CustomLink.jsx';
 
 function NavBar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#">
-        Navbar
-      </a>
+    <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <Link className="navbar-brand" to="/">
+        To-Doer
+      </Link>
       <button
         className="navbar-toggler"
         type="button"
@@ -18,11 +19,14 @@ function NavBar() {
       >
         <span className="navbar-toggler-icon" />
       </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
+      <div className="collapse navbar-collapse justify-content-between" id="navbarNav">
         <ul className="navbar-nav">
-          <CustomLink exact to="/" label="Home" activeOnlyWhenExact/>
+          <CustomLink to="/todos" label="Todos" />
+          <CustomLink to="/projects" label="Projects" />
           <CustomLink to="/about" label="About" />
-          <CustomLink to="/users" label="Users" />
+        </ul>
+        <ul className="navbar-nav">
+          {Meteor.userId() ? <CustomLink to="/profile" label="Profile" />: <CustomLink to="/login" label="Login" />}
         </ul>
       </div>
     </nav>
