@@ -1,7 +1,13 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavBar from './NavBar.jsx';
 import Login from '../pages/Login.jsx';
+import Signup from '../pages/Signup.jsx';
+import ForgotPassword from '../pages/ForgotPassword.jsx';
+import ResetPassword from '../pages/ResetPassword.jsx';
+import Todos from '../pages/Todos.jsx';
+import Projects from '../pages/Projects.jsx';
+import Profile from '../pages/Profile.jsx';
 
 function Routes() {
   return (
@@ -11,14 +17,29 @@ function Routes() {
         <br />
         <br />
         <Switch>
-          <Route path="/login">
+          <Route exact path="/login">
             <Login />
           </Route>
-          <Route path="/users">
-            <h1>users</h1>
+          <Route exact path="/signup">
+            <Signup />
           </Route>
-          <Route path="/">
-            <div />
+          <Route exact path="/reset-password">
+            <ResetPassword />
+          </Route>
+          <Route exact path="/forgot-password">
+            <ForgotPassword />
+          </Route>
+          <Route exact path="/todos">
+            <Todos />
+          </Route>
+          <Route exact path="/projects">
+            <Projects />
+          </Route>
+          <Route exact path="/profile">
+            <Profile />
+          </Route>
+          <Route exact path="/">
+            <div>Home Page</div>
           </Route>
         </Switch>
       </div>
