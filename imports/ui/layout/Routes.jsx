@@ -1,10 +1,5 @@
-import React from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 function Routes() {
   return (
@@ -28,18 +23,18 @@ function Routes() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/about">
-            <About />
+            <h1>About</h1>
           </Route>
           <Route path="/users">
-            <Users />
+            <h1>users</h1>
           </Route>
           <Route path="/">
-            <Home />
+            <div />
           </Route>
         </Switch>
       </div>
     </Router>
-  )
+  );
 }
 
-export default Routes
+export default Routes;

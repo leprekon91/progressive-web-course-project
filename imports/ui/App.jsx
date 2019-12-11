@@ -1,9 +1,6 @@
 import React from 'react';
+import Routes from './layout/Routes';
 
-const App = () => (
-  <div>
-    <h1>Welcome to Meteor!</h1>
-  </div>
-);
+const App = () => <Routes />;
 
 export default App;
