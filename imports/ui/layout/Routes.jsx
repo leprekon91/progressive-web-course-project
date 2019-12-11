@@ -1,10 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import NavBar from './NavBar';
 
 function Routes() {
   return (
     <Router>
       <div>
+        <NavBar />
         <nav>
           <ul>
             <li>
