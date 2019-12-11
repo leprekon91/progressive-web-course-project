@@ -11,6 +11,7 @@
     "@babel/runtime": "^7.6.0",
     "bcrypt": "^3.0.7",
     "bootstrap": "^4.4.1",
+    "jquery": "^3.4.1",
     "meteor-node-stubs": "^1.0.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

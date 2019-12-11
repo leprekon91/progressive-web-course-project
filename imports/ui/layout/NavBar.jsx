@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomLink from './CustomLink';
+import CustomLink from './CustomLink.jsx';
 
 function NavBar() {
   return (
@@ -20,7 +20,7 @@ function NavBar() {
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
-          <CustomLink to="/" label="Home" />
+          <CustomLink exact to="/" label="Home" activeOnlyWhenExact/>
           <CustomLink to="/about" label="About" />
           <CustomLink to="/users" label="Users" />
         </ul>
