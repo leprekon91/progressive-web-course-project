@@ -1,12 +1,8 @@
 /* eslint-disable react/jsx-fragments */
-import React from 'react';
+import React from "react";
 
 function Home() {
-  return (
-    <header>
-      
-    </header>
-  );
+  return <header>hi!</header>;
 }
 
 export default Home;
