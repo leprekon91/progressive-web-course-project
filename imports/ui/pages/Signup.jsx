@@ -1,10 +1,26 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-autofocus */
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Signup() {
+  const [username, setusername] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const [confirm, setconfirm] = useState("");
+
+  const onSubmit = e => {
+    console.log("hi");
+    e.preventDefault();
+    if (password === confirm) {
+      Accounts.createUser({ username, email, password }, err => {
+        if (err) {
+          alert(err);
+        }
+      });
+    }
+  };
   return (
     <div className="container accounts-form">
       <div className="row">
@@ -12,13 +28,15 @@ function Signup() {
           <div className="card card-signin my-5">
             <div className="card-body">
               <h5 className="card-title text-center">Sign Up</h5>
-              <form className="form-signin">
+              <form className="form-signin" onSubmit={onSubmit}>
                 <div className="form-label-group">
                   <input
                     type="text"
                     id="inputUname"
                     className="form-control"
                     placeholder="Username"
+                    value={username}
+                    onChange={e => setusername(e.target.value)}
                     required
                     autoFocus
                   />
@@ -31,6 +49,8 @@ function Signup() {
                     id="inputEmail"
                     className="form-control"
                     placeholder="Email address"
+                    value={email}
+                    onChange={e => setemail(e.target.value)}
                     required
                   />
                   <label htmlFor="inputEmail">Email address</label>
@@ -42,6 +62,8 @@ function Signup() {
                     id="inputPassword"
                     className="form-control"
                     placeholder="Password"
+                    value={password}
+                    onChange={e => setpassword(e.target.value)}
                     required
                   />
                   <label htmlFor="inputPassword">Password</label>
@@ -53,6 +75,8 @@ function Signup() {
                     id="inputConfirm"
                     className="form-control"
                     placeholder="Confirm Password"
+                    value={confirm}
+                    onChange={e => setconfirm(e.target.value)}
                     required
                   />
                   <label htmlFor="inputConfirm">Confirm Password</label>
@@ -62,15 +86,24 @@ function Signup() {
                   Already have an account? &nbsp;
                   <Link to="/login">Sign-in!</Link>
                 </div>
-                <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
+                <button
+                  className="btn btn-lg btn-primary btn-block text-uppercase"
+                  type="submit"
+                >
                   Sign up
                 </button>
                 <hr className="my-4" />
-                <button className="btn btn-lg btn-google btn-block text-uppercase" type="submit">
+                <button
+                  className="btn btn-lg btn-google btn-block text-uppercase"
+                  type="button"
+                >
                   <i className="fab fa-google mr-2" />
                   Sign up with Google
                 </button>
-                <button className="btn btn-lg btn-facebook btn-block text-uppercase" type="submit">
+                <button
+                  className="btn btn-lg btn-facebook btn-block text-uppercase"
+                  type="button"
+                >
                   <i className="fab fa-facebook-f mr-2" />
                   Sign up with Facebook
                 </button>
