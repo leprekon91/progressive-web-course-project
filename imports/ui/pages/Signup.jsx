@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-autofocus */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 function Signup() {
   const [username, setusername] = useState('');
@@ -10,7 +10,11 @@ function Signup() {
   const [password, setpassword] = useState('');
   const [confirm, setconfirm] = useState('');
   const [loading, setloading] = useState(false);
+  const [signedUp, setSignedUp] = useState(!!Meteor.userId());
 
+  if (signedUp) {
+    return <Redirect to="/" />;
+  }
   const onSubmit = (e) => {
     e.preventDefault();
     setloading(true);
@@ -19,6 +23,8 @@ function Signup() {
         if (err) {
           // eslint-disable-next-line no-alert
           alert(err);
+        } else {
+          setSignedUp(true);
         }
         setloading(false);
       });
@@ -93,7 +99,11 @@ function Signup() {
                   Already have an account? &nbsp;
                   <Link to="/login">Sign-in!</Link>
                 </div>
-                <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit" disabled={loading}>
+                <button
+                  className="btn btn-lg btn-primary btn-block text-uppercase"
+                  type="submit"
+                  disabled={loading}
+                >
                   Sign up
                 </button>
                 <hr className="my-4" />

@@ -2,12 +2,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-autofocus */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 function Login() {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [loading, setLoading] = React.useState(false);
+  const [logedIn, setLogedIn] = React.useState(!!Meteor.userId());
+
+  if (logedIn) {
+    return <Redirect to="/" />;
+  }
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -16,6 +21,8 @@ function Login() {
       if (err) {
         // eslint-disable-next-line no-alert
         alert(err);
+      } else {
+        setLogedIn(true);
       }
       setLoading(false);
     });
