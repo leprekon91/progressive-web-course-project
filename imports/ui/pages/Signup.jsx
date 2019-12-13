@@ -1,23 +1,26 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-autofocus */
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Signup() {
-  const [username, setusername] = useState("");
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
-  const [confirm, setconfirm] = useState("");
+  const [username, setusername] = useState('');
+  const [email, setemail] = useState('');
+  const [password, setpassword] = useState('');
+  const [confirm, setconfirm] = useState('');
+  const [loading, setloading] = useState(false);
 
-  const onSubmit = e => {
-    console.log("hi");
+  const onSubmit = (e) => {
     e.preventDefault();
+    setloading(true);
     if (password === confirm) {
-      Accounts.createUser({ username, email, password }, err => {
+      Accounts.createUser({ username, email, password }, (err) => {
         if (err) {
+          // eslint-disable-next-line no-alert
           alert(err);
         }
+        setloading(false);
       });
     }
   };
@@ -36,7 +39,8 @@ function Signup() {
                     className="form-control"
                     placeholder="Username"
                     value={username}
-                    onChange={e => setusername(e.target.value)}
+                    onChange={(e) => setusername(e.target.value)}
+                    disabled={loading}
                     required
                     autoFocus
                   />
@@ -50,7 +54,8 @@ function Signup() {
                     className="form-control"
                     placeholder="Email address"
                     value={email}
-                    onChange={e => setemail(e.target.value)}
+                    onChange={(e) => setemail(e.target.value)}
+                    disabled={loading}
                     required
                   />
                   <label htmlFor="inputEmail">Email address</label>
@@ -63,7 +68,8 @@ function Signup() {
                     className="form-control"
                     placeholder="Password"
                     value={password}
-                    onChange={e => setpassword(e.target.value)}
+                    onChange={(e) => setpassword(e.target.value)}
+                    disabled={loading}
                     required
                   />
                   <label htmlFor="inputPassword">Password</label>
@@ -76,7 +82,8 @@ function Signup() {
                     className="form-control"
                     placeholder="Confirm Password"
                     value={confirm}
-                    onChange={e => setconfirm(e.target.value)}
+                    onChange={(e) => setconfirm(e.target.value)}
+                    disabled={loading}
                     required
                   />
                   <label htmlFor="inputConfirm">Confirm Password</label>
@@ -86,24 +93,15 @@ function Signup() {
                   Already have an account? &nbsp;
                   <Link to="/login">Sign-in!</Link>
                 </div>
-                <button
-                  className="btn btn-lg btn-primary btn-block text-uppercase"
-                  type="submit"
-                >
+                <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit" disabled={loading}>
                   Sign up
                 </button>
                 <hr className="my-4" />
-                <button
-                  className="btn btn-lg btn-google btn-block text-uppercase"
-                  type="button"
-                >
+                <button className="btn btn-lg btn-google btn-block text-uppercase" type="button">
                   <i className="fab fa-google mr-2" />
                   Sign up with Google
                 </button>
-                <button
-                  className="btn btn-lg btn-facebook btn-block text-uppercase"
-                  type="button"
-                >
+                <button className="btn btn-lg btn-facebook btn-block text-uppercase" type="button">
                   <i className="fab fa-facebook-f mr-2" />
                   Sign up with Facebook
                 </button>

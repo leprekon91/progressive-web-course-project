@@ -1,17 +1,24 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-autofocus */
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Login() {
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const [loading, setLoading] = React.useState(false);
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    Meteor.loginWithPassword(username, password, err => alert(err));
+    setLoading(true);
+    Meteor.loginWithPassword(username, password, (err) => {
+      if (err) {
+        // eslint-disable-next-line no-alert
+        alert(err);
+      }
+      setLoading(false);
+    });
   };
   return (
     <div className="container accounts-form">
@@ -28,7 +35,7 @@ function Login() {
                     className="form-control"
                     placeholder="Username"
                     value={username}
-                    onChange={e => setUsername(e.target.value)}
+                    onChange={(e) => setUsername(e.target.value)}
                     disabled={loading}
                     required
                     autoFocus
@@ -43,7 +50,7 @@ function Login() {
                     className="form-control"
                     placeholder="Password"
                     value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                     disabled={loading}
                     required
                   />
@@ -62,20 +69,14 @@ function Login() {
                   type="submit"
                   disabled={loading}
                 >
-                  {loading ? <i className="fas fa-spinner" /> : "Sign in"}
+                  {loading ? <i className="fas fa-spinner" /> : 'Sign in'}
                 </button>
                 <hr className="my-4" />
-                <button
-                  className="btn btn-lg btn-google btn-block text-uppercase"
-                  type="submit"
-                >
+                <button className="btn btn-lg btn-google btn-block text-uppercase" type="submit">
                   <i className="fab fa-google mr-2" />
                   Sign in with Google
                 </button>
-                <button
-                  className="btn btn-lg btn-facebook btn-block text-uppercase"
-                  type="submit"
-                >
+                <button className="btn btn-lg btn-facebook btn-block text-uppercase" type="submit">
                   <i className="fab fa-facebook-f mr-2" />
                   Sign in with Facebook
                 </button>
