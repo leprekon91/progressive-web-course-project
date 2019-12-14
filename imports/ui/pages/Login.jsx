@@ -1,12 +1,12 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-autofocus */
-import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import React from "react";
+import { Link, Redirect } from "react-router-dom";
 
 function Login() {
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [logedIn, setLogedIn] = React.useState(!!Meteor.userId());
 
@@ -14,10 +14,10 @@ function Login() {
     return <Redirect to="/" />;
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = e => {
     e.preventDefault();
     setLoading(true);
-    Meteor.loginWithPassword(username, password, (err) => {
+    Meteor.loginWithPassword(username, password, err => {
       if (err) {
         // eslint-disable-next-line no-alert
         alert(err);
@@ -25,6 +25,15 @@ function Login() {
         setLogedIn(true);
       }
       setLoading(false);
+    });
+  };
+  const googleSignIn = e => {
+    Meteor.loginWithGoogle({}, err => {
+      if (err) {
+        alert(err);
+      } else {
+        setLogedIn(true);
+      }
     });
   };
   return (
@@ -42,7 +51,7 @@ function Login() {
                     className="form-control"
                     placeholder="Username"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={e => setUsername(e.target.value)}
                     disabled={loading}
                     required
                     autoFocus
@@ -57,7 +66,7 @@ function Login() {
                     className="form-control"
                     placeholder="Password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={e => setPassword(e.target.value)}
                     disabled={loading}
                     required
                   />
@@ -76,14 +85,23 @@ function Login() {
                   type="submit"
                   disabled={loading}
                 >
-                  {loading ? <i className="fas fa-spinner" /> : 'Sign in'}
+                  {loading ? <i className="fas fa-spinner" /> : "Sign in"}
                 </button>
                 <hr className="my-4" />
-                <button className="btn btn-lg btn-google btn-block text-uppercase" type="submit">
+
+                <button
+                  className="btn btn-lg btn-google btn-block text-uppercase"
+                  type="button"
+                  onClick={googleSignIn}
+                >
                   <i className="fab fa-google mr-2" />
                   Sign in with Google
                 </button>
-                <button className="btn btn-lg btn-facebook btn-block text-uppercase" type="submit">
+
+                <button
+                  className="btn btn-lg btn-facebook btn-block text-uppercase"
+                  type="submit"
+                >
                   <i className="fab fa-facebook-f mr-2" />
                   Sign in with Facebook
                 </button>
