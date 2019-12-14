@@ -32,6 +32,7 @@ function Login() {
       if (err) {
         alert(err);
       } else {
+        console.log(Meteor.userId()); // update with user id the username and email.
         setLogedIn(true);
       }
     });
