@@ -32,7 +32,11 @@ function Login() {
       if (err) {
         alert(err);
       } else {
-        console.log(Meteor.userId()); // update with user id the username and email.
+        Meteor.call("users.googleUser", error => {
+          if (error) {
+            alert(error);
+          }
+        });
         setLogedIn(true);
       }
     });
