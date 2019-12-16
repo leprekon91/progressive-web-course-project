@@ -1,12 +1,12 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-autofocus */
-import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import React from 'react';
+import { Link, Redirect } from 'react-router-dom';
 
 function Login() {
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const [logedIn, setLogedIn] = React.useState(!!Meteor.userId());
 
@@ -14,10 +14,10 @@ function Login() {
     return <Redirect to="/" />;
   }
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    Meteor.loginWithPassword(username, password, err => {
+    Meteor.loginWithPassword(username, password, (err) => {
       if (err) {
         // eslint-disable-next-line no-alert
         alert(err);
@@ -27,17 +27,26 @@ function Login() {
       setLoading(false);
     });
   };
-  const googleSignIn = e => {
-    Meteor.loginWithGoogle({}, err => {
+
+  const googleSignIn = (e) => {
+    Meteor.loginWithGoogle({}, (err) => {
       if (err) {
         alert(err);
       } else {
-        Meteor.call("users.googleUser", error => {
+        Meteor.call('users.googleUser', (error) => {
           if (error) {
             alert(error);
           }
         });
         setLogedIn(true);
+      }
+    });
+  };
+
+  const facebookSignIn = (e) => {
+    Meteor.loginWithFacebook({}, (err) => {
+      if (err) {
+        console.log(err);
       }
     });
   };
@@ -56,7 +65,7 @@ function Login() {
                     className="form-control"
                     placeholder="Username"
                     value={username}
-                    onChange={e => setUsername(e.target.value)}
+                    onChange={(e) => setUsername(e.target.value)}
                     disabled={loading}
                     required
                     autoFocus
@@ -71,7 +80,7 @@ function Login() {
                     className="form-control"
                     placeholder="Password"
                     value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                     disabled={loading}
                     required
                   />
@@ -90,7 +99,7 @@ function Login() {
                   type="submit"
                   disabled={loading}
                 >
-                  {loading ? <i className="fas fa-spinner" /> : "Sign in"}
+                  {loading ? <i className="fas fa-spinner" /> : 'Sign in'}
                 </button>
                 <hr className="my-4" />
 
@@ -106,6 +115,7 @@ function Login() {
                 <button
                   className="btn btn-lg btn-facebook btn-block text-uppercase"
                   type="submit"
+                  onClick={facebookSignIn}
                 >
                   <i className="fab fa-facebook-f mr-2" />
                   Sign in with Facebook

@@ -4,12 +4,28 @@
 Accounts.config({ sendVerificationEmail: true });
 
 ServiceConfiguration.configurations.upsert(
-  { service: "google" },
+  { service: 'google' },
   {
     $set: {
-      loginStyle: "popup",
+      loginStyle: 'popup',
       clientId: Meteor.settings.googleSignin.clientId,
-      secret: Meteor.settings.googleSignin.secret
-    }
-  }
+      secret: Meteor.settings.googleSignin.secret,
+    },
+  },
+);
+
+ServiceConfiguration.configurations.remove({
+  service: 'facebook',
+});
+
+ServiceConfiguration.configurations.upsert(
+  {
+    service: 'facebook',
+  },
+  {
+    $set: {
+      appId: Meteor.settings.facebookSignin.appId,
+      secret: Meteor.settings.facebookSignin.secret,
+    },
+  },
 );
