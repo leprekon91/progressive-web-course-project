@@ -28,7 +28,7 @@ function VerifyEmail({ token }) {
               <form className="form-signin" onSubmit={onSubmit}>
                 <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
                   {/* <i class="fas fa-spinner fa-2x"/> */}
-                  Verify Email Address
+                  {loading ? <i className="fas fa-spinner" /> : 'Verify Email Address'}
                 </button>
               </form>
             </div>
