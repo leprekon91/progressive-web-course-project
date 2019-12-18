@@ -6,7 +6,7 @@ import Signup from '../pages/Signup.jsx';
 import ForgotPassword from '../pages/ForgotPassword.jsx';
 import ResetPassword from '../pages/ResetPassword.jsx';
 import Todos from '../pages/Todos.jsx';
-import Projects from '../pages/Projects.jsx';
+import ProjectsPage from '../pages/ProjectsPage.jsx';
 import Profile from '../pages/Profile.jsx';
 import VerifyEmail from '../pages/VerifyEmail.jsx';
 import Home from '../pages/Home.jsx';
@@ -42,8 +42,13 @@ function Routes() {
             <Todos />
           </Route>
           <Route exact path="/projects">
-            <Projects />
+            <ProjectsPage />
           </Route>
+          <Route
+            exact
+            path="/project/:projectId"
+            component={({ match }) => <h1>{match.params.projectId}</h1>}
+          />
           <Route exact path="/profile">
             <Profile />
           </Route>
