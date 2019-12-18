@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
 import CustomLink from './CustomLink.jsx';
 
-function NavBar() {
+function NavBar({ user }) {
   return (
-    <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar fixed-top navbar-expand-lg bg-light">
       <Link className="navbar-brand" to="/">
         To-Doer
       </Link>
@@ -17,11 +18,11 @@ function NavBar() {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span className="navbar-toggler-icon" />
+        <i className="fas fa-bars" />
       </button>
       <div className="collapse navbar-collapse justify-content-between" id="navbarNav">
         <ul className="navbar-nav">
-          {Meteor.userId() && (
+          {user && (
             // eslint-disable-next-line react/jsx-fragments
             <React.Fragment>
               <CustomLink to="/todos" label="Todos" />
@@ -30,8 +31,14 @@ function NavBar() {
           )}
         </ul>
         <ul className="navbar-nav">
-          {Meteor.userId() ? (
-            <CustomLink to="/profile" label="Profile" />
+          {user ? (
+            // eslint-disable-next-line react/jsx-fragments
+            <React.Fragment>
+              <CustomLink to="/profile" label="Profile" />
+              <button type="button" onClick={() => Meteor.logout()}>
+                Logout
+              </button>
+            </React.Fragment>
           ) : (
             <CustomLink to="/login" label="Login" />
           )}
@@ -41,4 +48,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default withTracker(() => ({ user: Meteor.user() }))(NavBar);
