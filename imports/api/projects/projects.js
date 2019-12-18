@@ -17,7 +17,7 @@ Projects.deny({
 
 Projects.schema = new SimpleSchema({
   title: { type: String },
-  description: { type: String },
+  description: { type: String, optional: true },
   createdAt: { type: Date },
   dueDate: { type: Date },
   managerId: { type: String },
