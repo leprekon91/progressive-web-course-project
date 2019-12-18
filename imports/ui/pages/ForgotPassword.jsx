@@ -10,7 +10,9 @@ function ForgotPassword() {
   const onSubmit = (e) => {
     e.preventDefault();
     setloading(true);
-    Accounts.resetPassword({ email }, (err) => {
+
+    Accounts.forgotPassword({ email }, (err) => {
+      console.log('got here');
       if (err) {
         alert(err);
       } else {

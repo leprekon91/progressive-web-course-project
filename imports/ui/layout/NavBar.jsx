@@ -5,7 +5,7 @@ import CustomLink from './CustomLink.jsx';
 
 function NavBar({ user }) {
   return (
-    <nav className="navbar fixed-top navbar-expand-lg">
+    <nav className="navbar fixed-top navbar-expand-lg bg-light">
       <Link className="navbar-brand" to="/">
         To-Doer
       </Link>

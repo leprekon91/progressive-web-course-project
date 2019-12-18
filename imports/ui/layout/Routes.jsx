@@ -25,9 +25,11 @@ function Routes() {
           <Route exact path="/signup">
             <Signup />
           </Route>
-          <Route exact path="/reset-password">
-            <ResetPassword />
-          </Route>
+          <Route
+            exact
+            path="/reset-password/:token"
+            component={({ match }) => <ResetPassword token={match.params.token} />}
+          />
           <Route exact path="/forgot-password">
             <ForgotPassword />
           </Route>
