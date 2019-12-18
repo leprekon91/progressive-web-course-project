@@ -5,7 +5,7 @@ import CustomLink from './CustomLink.jsx';
 
 function NavBar({ user }) {
   return (
-    <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar fixed-top navbar-expand-lg">
       <Link className="navbar-brand" to="/">
         To-Doer
       </Link>
@@ -18,7 +18,7 @@ function NavBar({ user }) {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span className="navbar-toggler-icon" />
+        <i className="fas fa-bars" />
       </button>
       <div className="collapse navbar-collapse justify-content-between" id="navbarNav">
         <ul className="navbar-nav">

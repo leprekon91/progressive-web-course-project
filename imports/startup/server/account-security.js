@@ -3,6 +3,14 @@
  */
 Accounts.config({ sendVerificationEmail: true });
 
+Accounts.urls.resetPassword = (token) => {
+  return Meteor.absoluteUrl(`reset-password/${token}`);
+};
+
+Accounts.urls.verifyEmail = (token) => {
+  return Meteor.absoluteUrl(`verify-email/${token}`);
+};
+
 ServiceConfiguration.configurations.upsert(
   { service: 'google' },
   {

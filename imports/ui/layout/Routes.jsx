@@ -31,9 +31,11 @@ function Routes() {
           <Route exact path="/forgot-password">
             <ForgotPassword />
           </Route>
-          <Route exact path="/verify-email">
-            <VerifyEmail />
-          </Route>
+          <Route
+            exact
+            path="/verify-email/:token"
+            component={({ match }) => <VerifyEmail token={match.params.token} />}
+          />
           <Route path="/todos">
             <Todos />
           </Route>
