@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 
-function ProjectStatusBar({ todos }) {
-  const todoPercent = todos.filter((t) => t.status === 'todo').length / todos.length;
-  const inprogPercent = todos.filter((t) => t.status === 'inprog').length / todos.length;
-  const donePercent = todos.filter((t) => t.status === 'done').length / todos.length;
+function ProjectStatusBar({ todoArr }) {
+  const todoPercent = todoArr.filter((t) => t.status === 'todo').length / todoArr.length;
+  const inprogPercent = todoArr.filter((t) => t.status === 'inprog').length / todoArr.length;
+  const donePercent = todoArr.filter((t) => t.status === 'done').length / todoArr.length;
   return (
     <div className="progress">
-      {todos.length !== 0 && (
+      {todoArr.length !== 0 && (
         <>
           <div
             className="progress-bar bg-warning"
@@ -39,4 +39,8 @@ function ProjectStatusBar({ todos }) {
   );
 }
 
-export default ProjectStatusBar;
+export default withTracker(({ todos }) => {
+  const ready = Meteor.subscribe('todos.byArray', { todos }).ready();
+  const todoArr = Todos.find({ _id: { $in: todos } }).fetch();
+  return { ready, todoArr };
+})(ProjectStatusBar);

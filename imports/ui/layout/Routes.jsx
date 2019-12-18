@@ -10,6 +10,7 @@ import ProjectsPage from '../pages/ProjectsPage.jsx';
 import Profile from '../pages/Profile.jsx';
 import VerifyEmail from '../pages/VerifyEmail.jsx';
 import Home from '../pages/Home.jsx';
+import SingleProjectPage from '../pages/SingleProjectPage.jsx';
 
 function Routes() {
   return (
@@ -47,7 +48,7 @@ function Routes() {
           <Route
             exact
             path="/project/:projectId"
-            component={({ match }) => <h1>{match.params.projectId}</h1>}
+            component={({ match }) => <SingleProjectPage projectId={match.params.projectId} />}
           />
           <Route exact path="/profile">
             <Profile />
