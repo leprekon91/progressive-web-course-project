@@ -1,5 +1,8 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
+
+import { Todos } from '../../api/todos/todos';
 
 function ProjectStatusBar({ todoArr }) {
   const todoPercent = todoArr.filter((t) => t.status === 'todo').length / todoArr.length;
@@ -40,7 +43,7 @@ function ProjectStatusBar({ todoArr }) {
 }
 
 export default withTracker(({ todos }) => {
-  const ready = Meteor.subscribe('todos.byArray', { todos }).ready();
+  const ready = Meteor.subscribe('todos.statusBar', { todos }).ready();
   const todoArr = Todos.find({ _id: { $in: todos } }).fetch();
   return { ready, todoArr };
 })(ProjectStatusBar);
