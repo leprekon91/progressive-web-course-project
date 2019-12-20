@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
+import UserAvatar from '../components/UserAvatar.jsx';
 
 function Home({ user }) {
   return (
@@ -9,7 +10,9 @@ function Home({ user }) {
       {Meteor.userId() ? (
         <>
           <div className="row">
-            <div className="col-12">{`Hello, ${user.username}`}</div>
+            <div className="col-12">
+              <UserAvatar />
+            </div>
           </div>
           <div className="row">
             <div className="col-9">News</div>
@@ -25,6 +28,7 @@ function Home({ user }) {
   );
 }
 
-Home.propTypes = { user: PropTypes.object.isRequired };
+Home.propTypes = { user: PropTypes.object };
+Home.defaultProps = { user: null };
 
 export default withTracker(() => ({ user: Meteor.user() }))(Home);
