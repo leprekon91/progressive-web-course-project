@@ -69,7 +69,8 @@ const ReactLetterAvatar = ({ name, size, fontFamily, flex, ...props }) => {
       className="rounded-circle"
       width={size}
       height={flex ? size : null}
-      alt=""
+      alt={char}
+      title={name}
       {...props}
     />
   );
