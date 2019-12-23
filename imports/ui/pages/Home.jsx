@@ -1,10 +1,9 @@
 /* eslint-disable react/jsx-fragments */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withTracker } from 'meteor/react-meteor-data';
 import UserAvatar from '../components/UserAvatar.jsx';
 
-function Home({ user }) {
+function Home() {
   return (
     <div className="container-fluid mt-3">
       {Meteor.userId() ? (
@@ -20,8 +19,10 @@ function Home({ user }) {
           </div>
         </>
       ) : (
-        <div className="jumbotron">
-          <img src="/home-banner.png" className="img-fluid" alt="todoer banner" />
+        <div className="row">
+          <div className="col text-center">
+            <img src="/home-banner.png" className="img-fluid" alt="todoer banner" />
+          </div>
         </div>
       )}
     </div>
@@ -31,4 +32,4 @@ function Home({ user }) {
 Home.propTypes = { user: PropTypes.object };
 Home.defaultProps = { user: null };
 
-export default withTracker(() => ({ user: Meteor.user() }))(Home);
+export default Home;

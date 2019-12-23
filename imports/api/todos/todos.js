@@ -17,11 +17,12 @@ Todos.deny({
 
 Todos.schema = new SimpleSchema({
   title: { type: String },
-  description: { type: String },
+  creatorId: { type: String },
+  description: { type: String, optional: true },
   createdAt: { type: Date },
   dueDate: { type: Date },
   creatorName: { type: String },
-  assignedName: { type: String },
+  assignedName: { type: String},
   status: { type: String, allowedValues: ['todo', 'inprog', 'done'] },
 });
 
