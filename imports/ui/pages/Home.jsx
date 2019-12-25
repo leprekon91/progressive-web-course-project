@@ -20,8 +20,13 @@ function Home() {
         </>
       ) : (
         <div className="row">
-          <div className="col text-center">
-            <img src="/home-banner.png" className="img-fluid" alt="todoer banner" />
+          <div className="col text-center p-0 pl-5 pr-5">
+            <img
+              src="/home-banner.png"
+              className="img-fluid"
+              style={{ maxHeight: 500 }}
+              alt="todoer banner"
+            />
           </div>
         </div>
       )}

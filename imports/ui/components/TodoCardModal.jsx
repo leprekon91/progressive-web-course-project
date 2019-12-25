@@ -68,7 +68,7 @@ function TodoCardModal({ todo }) {
           <div className="col">
             <button
               type="button"
-              className="btn btn-outline-primary w-100"
+              className="btn btn-outline-primary w-100 d-sm-none d-md-block"
               data-toggle="modal"
               data-target={`#Modal${todo._id}`}
             >
