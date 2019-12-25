@@ -15,11 +15,23 @@ const createToDo = new ValidatedMethod({
       title,
       description: description || '',
       dueDate,
+      assignedId: this.userId,
       assignedName: Meteor.user().username,
       creatorId: this.userId,
       createdAt: new Date(),
       creatorName: Meteor.user().username,
       status: 'todo',
     });
+  },
+});
+
+const changeTodoState = new ValidatedMethod({
+  name: 'todos.changeStatus',
+  validate: new SimpleSchema({
+    todoId: { type: String },
+    status: { type: String, allowedValues: ['todo', 'inprog', 'done'] },
+  }).validator(),
+  run({ todoId, status }) {
+    Todos.update({ _id: todoId, assignedId: this.userId }, { $set: { status } });
   },
 });

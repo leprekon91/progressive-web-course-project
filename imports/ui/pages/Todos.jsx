@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
-import TodoCardModal from '../components/TodoCardModal';
-import CreateTodoForm from '../components/CreateTodoForm';
+
+import { Todos as TodosCollection } from '../../api/todos/todos.js';
+import TodoCardModal from '../components/TodoCardModal.jsx';
+import CreateTodoForm from '../components/CreateTodoForm.jsx';
 
 function Todos({ ready, todos }) {
   // eslint-disable-next-line no-restricted-globals
@@ -27,28 +29,7 @@ function Todos({ ready, todos }) {
 Todos.propTypes = { ready: PropTypes.bool.isRequired, todos: PropTypes.array.isRequired };
 
 export default withTracker(() => {
-  const ready = true;
-  const todos = [
-    {
-      _id: '123',
-      title: 'todo title',
-      description: 'description of ToDo',
-      createdAt: new Date(),
-      dueDate: new Date(),
-      creatorName: 'admin',
-      assignedName: 'admin',
-      status: 'todo',
-    },
-    {
-      _id: '456',
-      title: 'todo title 2',
-      description: 'description of ToDo 2',
-      createdAt: new Date(),
-      dueDate: new Date(),
-      creatorName: 'admin',
-      assignedName: 'assigned',
-      status: 'inprog',
-    },
-  ];
+  const ready = Meteor.subscribe('todos.my').ready();
+  const todos = TodosCollection.find({ creatorId: Meteor.userId() }).fetch();
   return { ready, todos };
 })(Todos);

@@ -22,7 +22,8 @@ Todos.schema = new SimpleSchema({
   createdAt: { type: Date },
   dueDate: { type: Date },
   creatorName: { type: String },
-  assignedName: { type: String},
+  assignedId: { type: String },
+  assignedName: { type: String },
   status: { type: String, allowedValues: ['todo', 'inprog', 'done'] },
 });
 
