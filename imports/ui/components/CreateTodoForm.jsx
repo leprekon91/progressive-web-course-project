@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 
-function CreateTodoForm() {
+function CreateTodoForm({ projectId }) {
   const [title, settitle] = useState('');
   const [description, setdescription] = useState('');
   const [dueDate, setdueDate] = useState(new Date());

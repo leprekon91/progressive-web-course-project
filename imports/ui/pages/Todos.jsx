@@ -7,19 +7,26 @@ import TodoCardModal from '../components/TodoCardModal.jsx';
 import CreateTodoForm from '../components/CreateTodoForm.jsx';
 
 function Todos({ ready, todos }) {
-  // eslint-disable-next-line no-restricted-globals
+  if (!ready) {
+    return 'loading';
+  }
+
   return (
     <div className="container-fluid my-3">
       <div className="row">
         <div className="col">
-          {todos.map((todo) => {
-            return <TodoCardModal key={todo._id} todo={todo} />;
-          })}
-        </div>
-      </div>
-      <div className="row">
-        <div className="col">
-          <CreateTodoForm />
+          <div className="list-group">
+            <div className="list-group-item">
+              <CreateTodoForm />
+            </div>
+            {todos.map((todo) => {
+              return (
+                <div key={todo._id} className="list-group-item">
+                  <TodoCardModal todo={todo} />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

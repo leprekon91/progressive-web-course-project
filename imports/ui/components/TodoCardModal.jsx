@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import UserAvatar from './UserAvatar.jsx';
 
 function TodoCardModal({ todo }) {
+  React.useEffect(() => {
+    $(`#Modal${todo._id}`).modal('hide');
+    return () => {
+      $(`#Modal${todo._id}`).modal('hide');
+    };
+  });
   const {
     title,
     description,
@@ -25,25 +31,44 @@ function TodoCardModal({ todo }) {
         return 'info';
     }
   };
+
+  const removeTodo = (e) => {
+    e.preventDefault();
+    if (confirm('Are you sure? this can not be undone!')) {
+      $(`#Modal${todo._id}`).modal('hide');
+      Meteor.call('todo.remove', { todoId: todo._id }, (err) => {
+        if (err) {
+          alert(err);
+        }
+      });
+    }
+  };
+
   return (
-    <div className="card flex-column align-items-start">
-      <div className="card-body w-100">
-        <div className="w-100 card-title">
-          <h5>{title}</h5>
-          <div className="p-3 d-flex w-100 justify-content-between align-items-center">
+    <div className="text-dark">
+      <div className="w-100 container bg-light rounded">
+        <div className="p-3 row">
+          <div className="col">
+            <h5>{title}</h5>
+          </div>
+          <div className="col">
             <span>
               <span>{createdAt.toLocaleDateString('he-IL')}</span>
               &nbsp;&minus;&nbsp;
               <span className={new Date() > dueDate ? 'text-danger' : ''}>
                 {dueDate.toLocaleDateString('he-IL')}
                 &nbsp;
-                {new Date() > dueDate ? '(Deadline passed)' : ''}
+                {new Date() > dueDate ? '(late)' : ''}
               </span>
             </span>
-            <small className={`badge badge-${getTodoBadge(status)}`}>{status}</small>
+          </div>
+          <div className="col text-center">
+            <h5 className={`badge badge-${getTodoBadge(status)}`}>{status}</h5>
+          </div>
+          <div className="col">
             <button
               type="button"
-              className="btn btn-outline-primary"
+              className="btn btn-outline-primary w-100"
               data-toggle="modal"
               data-target={`#Modal${todo._id}`}
             >
@@ -75,53 +100,60 @@ function TodoCardModal({ todo }) {
               <p className="card-text">{description}</p>
               <div className="p-3 d-flex w-100 justify-content-between align-items-center">
                 <small>
-                  <small>
-                    Created By:
-                    <UserAvatar username={creatorName} />
-                  </small>
+                  Created By
+                  <UserAvatar username={creatorName} />
+                  {creatorName}
                 </small>
                 {assignedName && (
                   <small>
-                    Assignee:
+                    Assigned to
                     <UserAvatar username={assignedName} />
+                    {assignedName}
                   </small>
                 )}
               </div>
-
-              <div className="btn-group" data-toggle="buttons">
-                <button
-                  type="button"
-                  disabled={Meteor.userId() !== assignedId}
-                  onClick={() => {
-                    Meteor.call('todos.changeStatus', { todoId: todo._id, status: 'todo' });
-                  }}
-                  className={`btn btn${status === 'todo' ? '' : '-outline'}-warning`}
-                >
-                  To-do
-                </button>
-                <button
-                  type="button"
-                  disabled={Meteor.userId() !== assignedId}
-                  onClick={() => {
-                    Meteor.call('todos.changeStatus', { todoId: todo._id, status: 'inprog' });
-                  }}
-                  className={`btn btn${status === 'inprog' ? '' : '-outline'}-primary`}
-                >
-                  In Progress
-                </button>
-                <button
-                  type="button"
-                  disabled={Meteor.userId() !== assignedId}
-                  onClick={() => {
-                    Meteor.call('todos.changeStatus', { todoId: todo._id, status: 'done' });
-                  }}
-                  className={`btn btn${status === 'done' ? '' : '-outline'}-success`}
-                >
-                  Done
-                </button>
+              <div className="text-center">
+                <div className="btn-group" data-toggle="buttons">
+                  <button
+                    type="button"
+                    disabled={Meteor.userId() !== assignedId}
+                    onClick={() => {
+                      Meteor.call('todos.changeStatus', { todoId: todo._id, status: 'todo' });
+                      $(`#Modal${todo._id}`).modal('hide');
+                    }}
+                    className={`btn btn${status === 'todo' ? '' : '-outline'}-warning`}
+                  >
+                    To-do
+                  </button>
+                  <button
+                    type="button"
+                    disabled={Meteor.userId() !== assignedId}
+                    onClick={() => {
+                      Meteor.call('todos.changeStatus', { todoId: todo._id, status: 'inprog' });
+                      $(`#Modal${todo._id}`).modal('hide');
+                    }}
+                    className={`btn btn${status === 'inprog' ? '' : '-outline'}-primary`}
+                  >
+                    In Progress
+                  </button>
+                  <button
+                    type="button"
+                    disabled={Meteor.userId() !== assignedId}
+                    onClick={() => {
+                      Meteor.call('todos.changeStatus', { todoId: todo._id, status: 'done' });
+                      $(`#Modal${todo._id}`).modal('hide');
+                    }}
+                    className={`btn btn${status === 'done' ? '' : '-outline'}-success`}
+                  >
+                    Done
+                  </button>
+                </div>
               </div>
             </div>
             <div className="modal-footer">
+              <button type="button" className="btn btn-danger" onClick={removeTodo}>
+                Delete This Task
+              </button>
               <button type="button" className="btn btn-secondary" data-dismiss="modal">
                 Close
               </button>
