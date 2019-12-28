@@ -10,3 +10,10 @@ Meteor.publish('projects.single', function({ projectId }) {
     $or: [{ managerId: this.userId }, { sharedWithIds: this.userId }],
   });
 });
+
+Meteor.publish('projects.byTodo', function({ todoId }) {
+  return Projects.find({
+    todos: todoId,
+    $or: [{ managerId: this.userId }, { sharedWithIds: this.userId }],
+  });
+});

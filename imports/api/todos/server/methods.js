@@ -52,7 +52,6 @@ const addTodoToProject = new ValidatedMethod({
     projectId: { type: String },
   }).validator(),
   run({ todoId, projectId }) {
-    console.log(todoId, projectId, this.userId);
     Projects.update({ _id: projectId, managerId: this.userId }, { $push: { todos: todoId } });
   },
 });

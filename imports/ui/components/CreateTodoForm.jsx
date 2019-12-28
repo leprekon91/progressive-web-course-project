@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 
-function CreateTodoForm({ projectId }) {
+function CreateTodoForm() {
   const [title, settitle] = useState('');
   const [description, setdescription] = useState('');
   const [dueDate, setdueDate] = useState(new Date());
@@ -12,6 +12,7 @@ function CreateTodoForm({ projectId }) {
     setloading(true);
     Meteor.call('todo.create', { title, description, dueDate }, (err) => {
       if (err) {
+        // eslint-disable-next-line no-alert
         alert(err);
       } else {
         $('#createTodoForm').modal('hide');

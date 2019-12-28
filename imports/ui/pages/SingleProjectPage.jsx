@@ -1,12 +1,20 @@
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-fragments */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React from 'react';
+import React, { useState } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Projects } from '../../api/projects/projects';
 import { Todos } from '../../api/todos/todos.js';
 import TodoCardModal from '../components/TodoCardModal.jsx';
 
 function SingleProjectPage({ ready, project, todos }) {
+  const [shareForm, setshareForm] = useState(false);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setshareForm(false);
+  };
   if (!ready) {
     return (
       <div className="m-3">
@@ -31,6 +39,20 @@ function SingleProjectPage({ ready, project, todos }) {
     <React.Fragment>
       <div className="container-fluid mt-3 d-none d-md-block">
         <h4>{project.title}</h4>
+        {shareForm ? (
+          <form onSubmit={onSubmit} className="float-right">
+            <div className="form-group">
+              <label>Email address of user to share with...</label>
+              <input type="email" className="form-control" aria-describedby="emailHelp" required />
+              <small id="emailHelp" className="form-text text-muted">
+                We'll never share this email with anyone else.
+              </small>
+            </div>
+            <button type="submit" />
+          </form>
+        ) : (
+          <i className="fas fa-share float-right btn btn-info" onClick={() => setshareForm(true)} />
+        )}
         <p className="text-muted">{project.description}</p>
         <div className="row">
           <div className="col">
@@ -66,6 +88,32 @@ function SingleProjectPage({ ready, project, todos }) {
         </div>
       </div>
       <div className="container-fluid mt-3 d-md-none">
+        <div className="row mb-1">
+          <div className="col">
+            {shareForm ? (
+              <form onSubmit={onSubmit} className="w-100">
+                <div className="form-group">
+                  <label>Email address</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    aria-describedby="emailHelp"
+                    reuired
+                  />
+                  <small id="emailHelp" className="form-text text-muted">
+                    We'll never share your email with anyone else.
+                  </small>
+                </div>
+                <button type="submit" />
+              </form>
+            ) : (
+              <i
+                className="fas fa-share float-right btn btn-info"
+                onClick={() => setshareForm(true)}
+              />
+            )}
+          </div>
+        </div>
         <div id="accordion">
           <div className="card text-white bg-warning">
             <div className="card-header" id="headingOne">

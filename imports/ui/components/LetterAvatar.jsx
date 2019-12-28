@@ -34,15 +34,17 @@ const propTypes = {
   name: PropTypes.string,
   size: PropTypes.number,
   fontFamily: PropTypes.string,
+  flex: PropTypes.bool,
 };
 
 const defaultProps = {
   name: '?',
   size: 50,
   fontFamily: null,
+  flex: false,
 };
 
-const ReactLetterAvatar = ({ name, size, fontFamily, flex, ...props }) => {
+const ReactLetterAvatar = ({ name, size, fontFamily, flex }) => {
   const char = name.trim()[0].toUpperCase();
   const textSize = Math.ceil(size / 1.5);
 
@@ -71,7 +73,6 @@ const ReactLetterAvatar = ({ name, size, fontFamily, flex, ...props }) => {
       height={flex ? size : null}
       alt={char}
       title={name}
-      {...props}
     />
   );
 };

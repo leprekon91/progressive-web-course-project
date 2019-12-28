@@ -9,9 +9,12 @@ function UserAvatar({ ready, user }) {
   if (!user) {
     return 'none';
   }
+  $(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
   return (
-    <div title={user.username}>
-      <ReactLetterAvatar name={user.username} />
+    <div title={user.username} data-toggle="tooltip" data-placement="top">
+      <ReactLetterAvatar name={user.username} flex size={25} />
     </div>
   );
 }

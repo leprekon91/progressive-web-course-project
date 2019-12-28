@@ -12,6 +12,7 @@ function AddProjectDialog() {
     e.preventDefault();
     Meteor.call('projects.new', { title, description, dueDate }, (err) => {
       if (err) {
+        // eslint-disable-next-line no-alert
         alert(err);
       } else {
         $('#exampleModal').modal('hide');

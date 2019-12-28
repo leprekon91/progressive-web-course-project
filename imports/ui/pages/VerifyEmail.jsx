@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 function VerifyEmail({ token }) {
   const [loading, setloading] = React.useState(false);
   const [verified, setverified] = React.useState(false);
-  console.log(token);
   const onSubmit = (e) => {
     e.preventDefault();
     Accounts.verifyEmail(token, (err) => {
