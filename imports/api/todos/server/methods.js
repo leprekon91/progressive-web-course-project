@@ -76,3 +76,19 @@ const assignTodo = new ValidatedMethod({
     );
   },
 });
+
+const editTodo = new ValidatedMethod({
+  name: 'todo.edit',
+  validate: new SimpleSchema({
+    todoId: { type: String },
+    title: { type: String },
+    description: { type: String },
+    dueDate: { type: String },
+  }).validator(),
+  run({ todoId, title, description, dueDate }) {
+    Todos.update(
+      { _id: todoId, creatorId: this.userId },
+      { $set: { title, description, dueDate } },
+    );
+  },
+});
