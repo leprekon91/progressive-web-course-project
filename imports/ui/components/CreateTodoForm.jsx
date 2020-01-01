@@ -18,7 +18,6 @@ function CreateTodoForm({ projectTodo }) {
         alert(err);
       } else {
         if (projectTodo !== 'false' && !!res) {
-          console.log({ todoId: res, projectId: projectTodo });
           Meteor.call('todo.addToProject', { todoId: res, projectId: projectTodo }, (err) => {
             if (err) {
               alert(err);

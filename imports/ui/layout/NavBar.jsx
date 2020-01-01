@@ -35,16 +35,7 @@ function NavBar({ user }) {
             // eslint-disable-next-line react/jsx-fragments
             <React.Fragment>
               <CustomLink to="/profile" label="Profile" />
-              <button
-                type="button"
-                className="btn btn-outline-primary"
-                onClick={() => Meteor.logout()}
-                data-toggle="collapse"
-                data-target="#navbarNav"
-              >
-                <i className="fas fa-sign-out-alt" />
-                &nbsp;Logout
-              </button>
+              <CustomLink to="/" label="Logout" />
             </React.Fragment>
           ) : (
             <CustomLink to="/login" label="Login" />

@@ -31,7 +31,6 @@ const shareProject = new ValidatedMethod({
   name: 'project.share',
   validate: new SimpleSchema({ projectId: { type: String }, email: { type: String } }).validator(),
   run({ projectId, email }) {
-    console.log({ projectId, email });
     const user = Accounts.findUserByEmail(email);
     const project = Projects.findOne({ _id: projectId });
     if (user && project && project.sharedWithIds.indexOf(user._id) < 0) {

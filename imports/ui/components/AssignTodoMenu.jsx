@@ -24,22 +24,27 @@ function AssignTodoMenu({ children, todo, possibleUsers, readyidList, readyUserL
         </div>
         {possibleUsers.length > 0 && (
           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            {possibleUsers.map((u) => (
-              <span
-                key={u._id}
-                className="d-flex w-100 justify-content-around align-items-center dropdown-item clickable"
-                onClick={() => assignTodo(u._id)}
-              >
-                {u._id === this.userId ? (
-                  'Assign Yourself'
-                ) : (
-                  <>
-                    <UserAvatar username={u.username} />
-                    {u.username}
-                  </>
-                )}
-              </span>
-            ))}
+            {possibleUsers.map((u) => {
+              if (todo.assignedId === u._id) {
+                return null;
+              }
+              return (
+                <span
+                  key={u._id}
+                  className="d-flex w-100 justify-content-around align-items-center dropdown-item clickable"
+                  onClick={() => assignTodo(u._id)}
+                >
+                  {u._id === Meteor.userId() ? (
+                    'Assign Yourself'
+                  ) : (
+                    <>
+                      <UserAvatar username={u.username} />
+                      {` ${u.username} <${u.emails[0].address}>`}
+                    </>
+                  )}
+                </span>
+              );
+            })}
           </div>
         )}
       </div>
