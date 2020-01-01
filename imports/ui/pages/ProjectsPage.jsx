@@ -55,13 +55,16 @@ function ProjectsPage({ ready, projects }) {
                         {`Participants: ${p.sharedWithIds.length + 1}`}
                       </p>
                       <p className="card-text">
-                        <small className="text-muted">
-                          {`Created At: ${p.createdAt.toLocaleString('he-IL')}`}
+                        <small>
+                          <span className="badge badge-success">
+                            {`Created: ${p.createdAt.toLocaleString('he-IL')}`}
+                          </span>
                         </small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">
-                          {`Due Date: ${p.dueDate.toLocaleString('he-IL')}`}
+                        &nbsp;&nbsp;&nbsp;
+                        <small>
+                          <span className="badge badge-danger">
+                            {`Due: ${p.dueDate.toLocaleString('he-IL')}`}
+                          </span>
                         </small>
                       </p>
                       <p className="card-text text-right">

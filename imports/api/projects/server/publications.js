@@ -1,7 +1,9 @@
 import { Projects } from '../projects';
 
 Meteor.publish('projects.my', function() {
-  return Projects.find({ managerId: this.userId });
+  return Projects.find({
+    $or: [{ managerId: this.userId }, { sharedWithIds: this.userId }],
+  });
 });
 
 Meteor.publish('projects.single', function({ projectId }) {

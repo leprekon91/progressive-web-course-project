@@ -41,18 +41,32 @@ function Routes({ loggingIn, authenticated }) {
             component={({ match }) => <VerifyEmail token={match.params.token} />}
           />
           <Authenticated
-            path="/todos"
-            component={() => <Todos />}
             loggingIn={loggingIn}
             authenticated={authenticated}
+            path="/todos"
+            component={() => <Todos />}
           />
-          <Route exact path="/projects" component={() => <ProjectsPage />} />
-          <Route
+          <Authenticated
+            loggingIn={loggingIn}
+            authenticated={authenticated}
+            exact
+            path="/projects"
+            component={() => <ProjectsPage />}
+          />
+          <Authenticated
+            loggingIn={loggingIn}
+            authenticated={authenticated}
             exact
             path="/project/:projectId"
             component={({ match }) => <SingleProjectPage projectId={match.params.projectId} />}
           />
-          <Route exact path="/profile" component={() => <Profile />} />
+          <Authenticated
+            loggingIn={loggingIn}
+            authenticated={authenticated}
+            exact
+            path="/profile"
+            component={() => <Profile />}
+          />
           <Route exact path="/">
             <Home />
           </Route>

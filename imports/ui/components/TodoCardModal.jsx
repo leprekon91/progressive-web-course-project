@@ -83,63 +83,78 @@ function TodoCardModal({ todo }) {
             <div className="modal-body">
               <p className="card-text">{description}</p>
               <div className="p-3 w-100">
-                <small>
-                  Created By
+                <span className="d-flex w-100 justify-content-start align-items-center">
+                  Created By&nbsp;
                   <UserAvatar username={creatorName} />
+                  &nbsp;
                   {creatorName}
-                </small>
+                </span>
                 {assignedName && (
                   <span>
-                    <AssignTodoMenu todo={todo}>
-                      <h5>Assignee:</h5>
-                      <span className="d-flex w-100 justify-content-around align-items-center dropdown-toggle">
+                    {Meteor.userId() === todo.creatorId ? (
+                      <AssignTodoMenu todo={todo}>
+                        <span className="d-flex w-100 justify-content-start align-items-center dropdown-toggle">
+                          Assignee: &nbsp;
+                          <UserAvatar username={assignedName} />
+                          &nbsp;
+                          {assignedName}
+                        </span>
+                      </AssignTodoMenu>
+                    ) : (
+                      <span className="d-flex w-100 justify-content-start align-items-center">
+                        Assignee: &nbsp;
                         <UserAvatar username={assignedName} />
+                        &nbsp;
                         {assignedName}
                       </span>
-                    </AssignTodoMenu>
+                    )}
                   </span>
                 )}
               </div>
             </div>
             <div className="modal-footer">
-              <div className="btn-group" data-toggle="buttons">
-                <button
-                  type="button"
-                  disabled={Meteor.userId() !== assignedId}
-                  onClick={() => {
-                    Meteor.call('todos.changeStatus', { todoId: todo._id, status: 'todo' });
-                    $(`#Modal${todo._id}`).modal('hide');
-                  }}
-                  className={`btn btn${status === 'todo' ? '' : '-outline'}-warning`}
-                >
-                  To-do
+              {assignedId === Meteor.userId() && (
+                <div className="btn-group" data-toggle="buttons">
+                  <button
+                    type="button"
+                    disabled={Meteor.userId() !== assignedId}
+                    onClick={() => {
+                      Meteor.call('todos.changeStatus', { todoId: todo._id, status: 'todo' });
+                      $(`#Modal${todo._id}`).modal('hide');
+                    }}
+                    className={`btn btn${status === 'todo' ? '' : '-outline'}-warning`}
+                  >
+                    To-do
+                  </button>
+                  <button
+                    type="button"
+                    disabled={Meteor.userId() !== assignedId}
+                    onClick={() => {
+                      Meteor.call('todos.changeStatus', { todoId: todo._id, status: 'inprog' });
+                      $(`#Modal${todo._id}`).modal('hide');
+                    }}
+                    className={`btn btn${status === 'inprog' ? '' : '-outline'}-primary`}
+                  >
+                    In Progress
+                  </button>
+                  <button
+                    type="button"
+                    disabled={Meteor.userId() !== assignedId}
+                    onClick={() => {
+                      Meteor.call('todos.changeStatus', { todoId: todo._id, status: 'done' });
+                      $(`#Modal${todo._id}`).modal('hide');
+                    }}
+                    className={`btn btn${status === 'done' ? '' : '-outline'}-success`}
+                  >
+                    Done
+                  </button>
+                </div>
+              )}
+              {todo.creatorId === Meteor.userId() && (
+                <button type="button" className="btn btn-danger" onClick={removeTodo}>
+                  Delete This Task
                 </button>
-                <button
-                  type="button"
-                  disabled={Meteor.userId() !== assignedId}
-                  onClick={() => {
-                    Meteor.call('todos.changeStatus', { todoId: todo._id, status: 'inprog' });
-                    $(`#Modal${todo._id}`).modal('hide');
-                  }}
-                  className={`btn btn${status === 'inprog' ? '' : '-outline'}-primary`}
-                >
-                  In Progress
-                </button>
-                <button
-                  type="button"
-                  disabled={Meteor.userId() !== assignedId}
-                  onClick={() => {
-                    Meteor.call('todos.changeStatus', { todoId: todo._id, status: 'done' });
-                    $(`#Modal${todo._id}`).modal('hide');
-                  }}
-                  className={`btn btn${status === 'done' ? '' : '-outline'}-success`}
-                >
-                  Done
-                </button>
-              </div>
-              <button type="button" className="btn btn-danger" onClick={removeTodo}>
-                Delete This Task
-              </button>
+              )}
               <button type="button" className="btn btn-secondary" data-dismiss="modal">
                 Close
               </button>

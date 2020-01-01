@@ -1,8 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import DatePicker from 'react-datepicker';
 
-function CreateTodoForm() {
+function CreateTodoForm({ projectTodo }) {
   const [title, settitle] = useState('');
   const [description, setdescription] = useState('');
   const [dueDate, setdueDate] = useState(new Date());
@@ -10,11 +12,19 @@ function CreateTodoForm() {
   const onSubmit = (e) => {
     e.preventDefault();
     setloading(true);
-    Meteor.call('todo.create', { title, description, dueDate }, (err) => {
+    Meteor.call('todo.create', { title, description, dueDate }, (err, res) => {
       if (err) {
         // eslint-disable-next-line no-alert
         alert(err);
       } else {
+        if (projectTodo !== 'false' && !!res) {
+          console.log({ todoId: res, projectId: projectTodo });
+          Meteor.call('todo.addToProject', { todoId: res, projectId: projectTodo }, (err) => {
+            if (err) {
+              alert(err);
+            }
+          });
+        }
         $('#createTodoForm').modal('hide');
       }
       setloading(false);
@@ -123,5 +133,8 @@ function CreateTodoForm() {
     </>
   );
 }
+
+CreateTodoForm.propTypes = { projectTodo: PropTypes.string };
+CreateTodoForm.defaultProps = { projectTodo: 'false' };
 
 export default CreateTodoForm;

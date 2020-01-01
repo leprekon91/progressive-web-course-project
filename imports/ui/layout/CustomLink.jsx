@@ -46,7 +46,11 @@ function CustomLink({ label, to, activeOnlyWhenExact }) {
   }
 
   return (
-    <li className={`nav-item ${match ? 'active' : ''}`}>
+    <li
+      className={`nav-item ${match ? 'active' : ''}`}
+      data-toggle="collapse"
+      data-target="#navbarNav"
+    >
       <Link className="nav-link" to={to}>
         {link}
       </Link>

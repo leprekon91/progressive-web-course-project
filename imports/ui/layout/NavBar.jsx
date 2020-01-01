@@ -7,7 +7,7 @@ function NavBar({ user }) {
   return (
     <nav className="navbar fixed-top navbar-expand-lg bg-light">
       <Link className="navbar-brand" to="/">
-        <img src="NavLogo.png" height="30" alt="logo" />
+        <img src="/NavLogo.png" height="30" alt="logo" />
       </Link>
       <button
         className="navbar-toggler"
@@ -39,6 +39,8 @@ function NavBar({ user }) {
                 type="button"
                 className="btn btn-outline-primary"
                 onClick={() => Meteor.logout()}
+                data-toggle="collapse"
+                data-target="#navbarNav"
               >
                 <i className="fas fa-sign-out-alt" />
                 &nbsp;Logout

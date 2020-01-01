@@ -12,7 +12,7 @@ const createToDo = new ValidatedMethod({
     dueDate: { type: Date },
   }).validator(),
   run({ title, description, dueDate }) {
-    Todos.insert({
+    const id = Todos.insert({
       title,
       description: description || '',
       dueDate,
@@ -23,6 +23,8 @@ const createToDo = new ValidatedMethod({
       creatorName: Meteor.user().username,
       status: 'todo',
     });
+    console.log(id);
+    return id;
   },
 });
 
@@ -60,6 +62,7 @@ const assignTodo = new ValidatedMethod({
   name: 'todo.assign',
   validate: new SimpleSchema({ todoId: { type: String }, userId: { type: String } }).validator(),
   run({ todoId, userId }) {
+    console.log({ todoId, userId });
     // find project
     const project = Projects.findOne({
       $or: [{ managerId: userId }, { sharedWithIds: userId }],
@@ -68,7 +71,8 @@ const assignTodo = new ValidatedMethod({
     if (!project) {
       throw new Meteor.Error('cant-assign-no-proj', "You can't assign a this todo.");
     }
-    const user = Meteor.users.find({ _id: userId });
+    console.log('got here');
+    const user = Meteor.users.findOne({ _id: userId });
     Todos.update(
       { _id: todoId, creatorId: this.userId },
       { $set: { assignedId: user._id, assignedName: user.username } },

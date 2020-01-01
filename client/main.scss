@@ -16,6 +16,10 @@ body {
   border-radius: 50%;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .fa-spinner {
   animation-name: spin;
   animation-duration: 5000ms;

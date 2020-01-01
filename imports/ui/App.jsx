@@ -7,8 +7,16 @@ import Routes from './layout/Routes';
 const App = ({ loggingIn, authenticated, conn }) => {
   if (!conn.connected && conn.retryCount > 0) {
     return (
-      <div className="big-error-screen">
-        <p className="text-danger">Error connecting to the server!</p>
+      <div className="jumbotron text-center text-white bg-danger m-3">
+        <h1 className="display-4">
+          <i className="fas fa-exclamation-triangle" />
+          <br />
+          An Error Accured
+        </h1>
+        <p className="lead">
+          Your device has lost connection to the server. Please reload the page or contact our
+          costumer support.
+        </p>
       </div>
     );
   }
