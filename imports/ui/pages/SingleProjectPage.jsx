@@ -44,18 +44,12 @@ function SingleProjectPage({ ready, project, todos }) {
     <React.Fragment>
       <div className="container-fluid mt-3 d-none d-md-block">
         <h4>{project.title}</h4>
-        <small>
-          <span className="badge badge-success">
-            {`Created: ${project.createdAt.toLocaleString('he-IL')}`}
+        {Meteor.userId() === project.managerId && (
+          <span className="float-right">
+            &nbsp;
+            <CreateTodoForm projectTodo={project._id} />
           </span>
-        </small>
-        &nbsp;&nbsp;&nbsp;
-        <small>
-          <span className="badge badge-danger">{`Due: ${project.dueDate.toLocaleString(
-            'he-IL',
-          )}`}</span>
-        </small>
-        {Meteor.userId() === project.managerId && <CreateTodoForm projectTodo={project._id} />}
+        )}
         {shareForm ? (
           <form onSubmit={onSubmit} className="float-right">
             <div className="form-group">
@@ -79,11 +73,25 @@ function SingleProjectPage({ ready, project, todos }) {
         ) : (
           <i className="fas fa-share float-right btn btn-info" onClick={() => setshareForm(true)} />
         )}
+        <small>
+          <span className="badge badge-success">
+            {`Created: ${project.createdAt.toLocaleString('he-IL')}`}
+          </span>
+        </small>
+        &nbsp;&nbsp;&nbsp;
+        <small>
+          <span className="badge badge-danger">
+            {`Due: ${project.dueDate.toLocaleString('he-IL')}`}
+          </span>
+        </small>
         <p className="text-muted">{project.description}</p>
         <div className="row">
           <div className="col">
             <div className="card text-white  mb-3">
-              <div className="card-header bg-warning">To-do</div>
+              <div className="card-header bg-warning">
+                To-do
+                <span class="badge badge-secondary float-right">{todoCollection.length}</span>
+              </div>
               <div className="card-body">
                 {todoCollection.map((t) => (
                   <TodoCardModal key={t._id} todo={t} />
@@ -93,7 +101,10 @@ function SingleProjectPage({ ready, project, todos }) {
           </div>
           <div className="col">
             <div className="card text-white mb-3">
-              <div className="card-header bg-primary">In Progress</div>
+              <div className="card-header bg-primary">
+                In Progress
+                <span class="badge badge-secondary float-right">{inprogCollection.length}</span>
+              </div>
               <div className="card-body">
                 {inprogCollection.map((t) => (
                   <TodoCardModal key={t._id} todo={t} />
@@ -103,7 +114,10 @@ function SingleProjectPage({ ready, project, todos }) {
           </div>
           <div className="col">
             <div className="card text-white mb-3">
-              <div className="card-header bg-success">Done</div>
+              <div className="card-header bg-success">
+                Done
+                <span class="badge badge-secondary float-right">{doneCollection.length}</span>
+              </div>
               <div className="card-body">
                 {doneCollection.map((t) => (
                   <TodoCardModal key={t._id} todo={t} />

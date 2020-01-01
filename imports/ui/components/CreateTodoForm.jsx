@@ -33,7 +33,7 @@ function CreateTodoForm({ projectTodo }) {
     <>
       <button
         type="button"
-        className="btn btn-primary"
+        className="btn btn-sm btn-primary"
         data-toggle="modal"
         data-target="#createTodoForm"
       >

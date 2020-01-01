@@ -57,7 +57,7 @@ function TodoCardModal({ todo }) {
             <h5>{title}</h5>
           </div>
           <div className="col text-center">
-            <UserAvatar username={assignedName} flex size={10} />
+            <UserAvatar username={assignedName} />
           </div>
         </div>
       </div>

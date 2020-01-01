@@ -35,7 +35,7 @@ function NavBar({ user }) {
             // eslint-disable-next-line react/jsx-fragments
             <React.Fragment>
               <CustomLink to="/profile" label="Profile" />
-              <CustomLink to="/" label="Logout" />
+              <CustomLink to="/logout" label="Logout" />
             </React.Fragment>
           ) : (
             <CustomLink to="/login" label="Login" />

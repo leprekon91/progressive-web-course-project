@@ -43,7 +43,7 @@ function CustomLink({ label, to, activeOnlyWhenExact }) {
       break;
     case 'Logout':
       link = (
-        <span onClick={() => Meteor.logout()}>
+        <span >
           <i className="fas fa-sign-out-alt" />
           {` ${label}`}
         </span>
