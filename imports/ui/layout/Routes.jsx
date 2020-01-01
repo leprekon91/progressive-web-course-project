@@ -11,8 +11,9 @@ import Profile from '../pages/Profile.jsx';
 import VerifyEmail from '../pages/VerifyEmail.jsx';
 import Home from '../pages/Home.jsx';
 import SingleProjectPage from '../pages/SingleProjectPage.jsx';
+import Authenticated from './Authenticated.jsx';
 
-function Routes() {
+function Routes({ loggingIn, authenticated }) {
   return (
     <Router>
       <div>
@@ -39,20 +40,19 @@ function Routes() {
             path="/verify-email/:token"
             component={({ match }) => <VerifyEmail token={match.params.token} />}
           />
-          <Route path="/todos">
-            <Todos />
-          </Route>
-          <Route exact path="/projects">
-            <ProjectsPage />
-          </Route>
+          <Authenticated
+            path="/todos"
+            component={() => <Todos />}
+            loggingIn={loggingIn}
+            authenticated={authenticated}
+          />
+          <Route exact path="/projects" component={() => <ProjectsPage />} />
           <Route
             exact
             path="/project/:projectId"
             component={({ match }) => <SingleProjectPage projectId={match.params.projectId} />}
           />
-          <Route exact path="/profile">
-            <Profile />
-          </Route>
+          <Route exact path="/profile" component={() => <Profile />} />
           <Route exact path="/">
             <Home />
           </Route>
