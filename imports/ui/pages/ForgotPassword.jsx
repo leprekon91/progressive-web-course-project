@@ -12,7 +12,6 @@ function ForgotPassword() {
     setloading(true);
 
     Accounts.forgotPassword({ email }, (err) => {
-      console.log('got here');
       if (err) {
         alert(err);
       } else {

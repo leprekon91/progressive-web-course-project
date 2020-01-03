@@ -1,25 +1,25 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-autofocus */
-import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 
 function Signup() {
-  const [username, setusername] = useState("");
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
-  const [confirm, setconfirm] = useState("");
+  const [username, setusername] = useState('');
+  const [email, setemail] = useState('');
+  const [password, setpassword] = useState('');
+  const [confirm, setconfirm] = useState('');
   const [loading, setloading] = useState(false);
   const [signedUp, setSignedUp] = useState(!!Meteor.userId());
 
   if (signedUp) {
     return <Redirect to="/" />;
   }
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     setloading(true);
     if (password === confirm) {
-      Accounts.createUser({ username, email, password }, err => {
+      Accounts.createUser({ username, email, password }, (err) => {
         if (err) {
           // eslint-disable-next-line no-alert
           alert(err);
@@ -30,6 +30,24 @@ function Signup() {
       });
     }
   };
+
+  const googleSignIn = (e) => {
+    e.preventDefault();
+    setloading(true);
+    Meteor.loginWithGoogle({}, (err) => {
+      if (err) {
+        alert(err);
+      } else {
+        Meteor.call('users.googleUser', (error) => {
+          if (error) {
+            alert(error);
+          }
+        });
+        setSignedUp(true);
+      }
+    });
+  };
+
   return (
     <div className="container accounts-form">
       <div className="row">
@@ -45,7 +63,7 @@ function Signup() {
                     className="form-control"
                     placeholder="Username"
                     value={username}
-                    onChange={e => setusername(e.target.value)}
+                    onChange={(e) => setusername(e.target.value)}
                     disabled={loading}
                     required
                     autoFocus
@@ -60,7 +78,7 @@ function Signup() {
                     className="form-control"
                     placeholder="Email address"
                     value={email}
-                    onChange={e => setemail(e.target.value)}
+                    onChange={(e) => setemail(e.target.value)}
                     disabled={loading}
                     required
                   />
@@ -74,7 +92,7 @@ function Signup() {
                     className="form-control"
                     placeholder="Password"
                     value={password}
-                    onChange={e => setpassword(e.target.value)}
+                    onChange={(e) => setpassword(e.target.value)}
                     disabled={loading}
                     required
                   />
@@ -88,7 +106,7 @@ function Signup() {
                     className="form-control"
                     placeholder="Confirm Password"
                     value={confirm}
-                    onChange={e => setconfirm(e.target.value)}
+                    onChange={(e) => setconfirm(e.target.value)}
                     disabled={loading}
                     required
                   />
@@ -107,19 +125,9 @@ function Signup() {
                   Sign up
                 </button>
                 <hr className="my-4" />
-                <button
-                  className="btn btn-lg btn-google btn-block text-uppercase"
-                  type="button"
-                >
+                <button className="btn btn-lg btn-google btn-block text-uppercase" type="button">
                   <i className="fab fa-google mr-2" />
                   Sign up with Google
-                </button>
-                <button
-                  className="btn btn-lg btn-facebook btn-block text-uppercase"
-                  type="button"
-                >
-                  <i className="fab fa-facebook-f mr-2" />
-                  Sign up with Facebook
                 </button>
               </form>
             </div>

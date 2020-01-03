@@ -7,7 +7,7 @@ function NavBar({ user }) {
   return (
     <nav className="navbar fixed-top navbar-expand-lg bg-light">
       <Link className="navbar-brand" to="/">
-        To-Doer
+        <img src="/NavLogo.png" height="30" alt="logo" />
       </Link>
       <button
         className="navbar-toggler"
@@ -25,7 +25,7 @@ function NavBar({ user }) {
           {user && (
             // eslint-disable-next-line react/jsx-fragments
             <React.Fragment>
-              <CustomLink to="/todos" label="Todos" />
+              <CustomLink to="/todos" label="My Todos" />
               <CustomLink to="/projects" label="Projects" />
             </React.Fragment>
           )}
@@ -35,9 +35,7 @@ function NavBar({ user }) {
             // eslint-disable-next-line react/jsx-fragments
             <React.Fragment>
               <CustomLink to="/profile" label="Profile" />
-              <button type="button" onClick={() => Meteor.logout()}>
-                Logout
-              </button>
+              <CustomLink to="/logout" label="Logout" />
             </React.Fragment>
           ) : (
             <CustomLink to="/login" label="Login" />
