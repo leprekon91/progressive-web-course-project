@@ -1,29 +1,42 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { withTracker } from 'meteor/react-meteor-data';
 
-function Todos() {
-  // eslint-disable-next-line no-restricted-globals
-  const params = location.pathname.split('/');
+import { Todos as TodosCollection } from '../../api/todos/todos.js';
+import TodoCardModal from '../components/TodoCardModal.jsx';
+import CreateTodoForm from '../components/CreateTodoForm.jsx';
+
+function Todos({ ready, todos }) {
+  if (!ready) {
+    return 'loading';
+  }
+
   return (
     <div className="container-fluid my-3">
       <div className="row">
-        <div
-          className={`col-sm-9 ${
-            params[params.length - 1] !== 'todos' ? 'd-none d-sm-block' : ''
-          } border `}
-        >
-          Todos List
-        </div>
-        <div className="col-xs-12 col-sm-3 border">
-          <Route
-            exact
-            path="/todos/:todoid"
-            component={({ match }) => <h1>{match.params.todoid}</h1>}
-          />
+        <div className="col">
+          <div className="list-group">
+            <div className="list-group-item">
+              <CreateTodoForm />
+            </div>
+            {todos.map((todo) => {
+              return (
+                <div key={todo._id} className="list-group-item">
+                  <TodoCardModal todo={todo} />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default Todos;
+Todos.propTypes = { ready: PropTypes.bool.isRequired, todos: PropTypes.array.isRequired };
+
+export default withTracker(() => {
+  const ready = Meteor.subscribe('todos.my').ready();
+  const todos = TodosCollection.find({ creatorId: Meteor.userId() }).fetch();
+  return { ready, todos };
+})(Todos);

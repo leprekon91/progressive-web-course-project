@@ -43,13 +43,6 @@ function Login() {
     });
   };
 
-  const facebookSignIn = (e) => {
-    Meteor.loginWithFacebook({}, (err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-  };
   return (
     <div className="container accounts-form">
       <div className="row">
@@ -110,15 +103,6 @@ function Login() {
                 >
                   <i className="fab fa-google mr-2" />
                   Sign in with Google
-                </button>
-
-                <button
-                  className="btn btn-lg btn-facebook btn-block text-uppercase"
-                  type="submit"
-                  onClick={facebookSignIn}
-                >
-                  <i className="fab fa-facebook-f mr-2" />
-                  Sign in with Facebook
                 </button>
               </form>
             </div>
