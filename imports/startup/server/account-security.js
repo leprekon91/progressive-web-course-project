@@ -21,19 +21,3 @@ ServiceConfiguration.configurations.upsert(
     },
   },
 );
-
-ServiceConfiguration.configurations.remove({
-  service: 'facebook',
-});
-
-ServiceConfiguration.configurations.upsert(
-  {
-    service: 'facebook',
-  },
-  {
-    $set: {
-      appId: Meteor.settings.facebookSignin.appId,
-      secret: Meteor.settings.facebookSignin.secret,
-    },
-  },
-);
