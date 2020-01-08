@@ -1,6 +1,7 @@
 # Progressive Web Course Project
 
 Project For the Braude College Progressive Web Course
+Hosted on [heroku](https://todoer-project.herokuapp.com)
 
 ## Project requirments:
 
