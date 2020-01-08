@@ -17,7 +17,6 @@ function Routes({ loggingIn, authenticated }) {
   return (
     <Router>
       <div>
-        <NavBar />
         <br />
         <br />
         <Switch>
@@ -44,38 +43,64 @@ function Routes({ loggingIn, authenticated }) {
             loggingIn={loggingIn}
             authenticated={authenticated}
             path="/todos"
-            component={() => <Todos />}
+            component={() => (
+              <>
+                <NavBar />
+                <Todos />
+              </>
+            )}
           />
           <Authenticated
             loggingIn={loggingIn}
             authenticated={authenticated}
             exact
             path="/projects"
-            component={() => <ProjectsPage />}
+            component={() => (
+              <>
+                <NavBar />
+                <ProjectsPage />
+              </>
+            )}
           />
           <Authenticated
             loggingIn={loggingIn}
             authenticated={authenticated}
             exact
             path="/project/:projectId"
-            component={({ match }) => <SingleProjectPage projectId={match.params.projectId} />}
+            component={({ match }) => (
+              <>
+                <NavBar />
+                <SingleProjectPage projectId={match.params.projectId} />
+              </>
+            )}
           />
           <Authenticated
             loggingIn={loggingIn}
             authenticated={authenticated}
             exact
             path="/profile"
-            component={() => <Profile />}
+            component={() => (
+              <>
+                <NavBar />
+                <Profile />
+              </>
+            )}
           />
           <Route
             exact
             path="/logout"
             component={() => {
               Meteor.logout();
-              return <Redirect to="/" />;
+              return (
+                <>
+                  <NavBar />
+                  <Redirect to="/" />
+                </>
+              );
             }}
           />
           <Route exact path="/">
+            <NavBar />
             <Home />
           </Route>
         </Switch>
