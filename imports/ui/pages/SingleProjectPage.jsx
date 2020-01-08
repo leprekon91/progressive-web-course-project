@@ -267,9 +267,6 @@ export default withTracker(({ projectId }) => {
     Meteor.subscribe('todos.byProject', { projectId }).ready();
 
   const project = Projects.findOne({ _id: projectId });
-  let todos = [];
-  if (project) {
-    todos = Todos.find({ _id: { $in: project.todos } }).fetch();
-  }
+  const todos = Todos.find({ _id: { $in: project.todos } }).fetch();
   return { ready, project, todos };
 })(SingleProjectPage);
