@@ -9,13 +9,6 @@ Meteor.publish('todos.my', function() {
   return Todos.find({ creatorId: this.userId });
 });
 
-Meteor.publish('todos.byProject', function({ projectId }) {
-  const project = Projects.findOne({
-    _id: projectId,
-    $or: [{ managerId: this.userId }, { sharedWithIds: this.userId }],
-  });
-  if (!project) {
-    return this.ready();
-  }
-  return Todos.find({ _id: { $in: project.todos } });
+Meteor.publish('todos.byProject', function({ todos, type }) {
+  return Todos.find({ _id: { $in: todos }, status: type });
 });

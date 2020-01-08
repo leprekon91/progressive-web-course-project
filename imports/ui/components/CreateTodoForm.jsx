@@ -12,22 +12,19 @@ function CreateTodoForm({ projectTodo }) {
   const onSubmit = (e) => {
     e.preventDefault();
     setloading(true);
-    Meteor.call('todo.create', { title, description, dueDate }, (err, res) => {
-      if (err) {
-        // eslint-disable-next-line no-alert
-        alert(err);
-      } else {
-        if (projectTodo !== 'false' && !!res) {
-          Meteor.call('todo.addToProject', { todoId: res, projectId: projectTodo }, (err) => {
-            if (err) {
-              alert(err);
-            }
-          });
+    Meteor.call(
+      'todo.create',
+      { title, description, dueDate, projectId: projectTodo },
+      (err) => {
+        if (err) {
+          // eslint-disable-next-line no-alert
+          alert(err);
+        } else {
+          $('#createTodoForm').modal('hide');
         }
-        $('#createTodoForm').modal('hide');
-      }
-      setloading(false);
-    });
+        setloading(false);
+      },
+    );
   };
   return (
     <>
