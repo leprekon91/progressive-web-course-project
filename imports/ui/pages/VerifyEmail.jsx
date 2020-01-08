@@ -5,7 +5,6 @@ function VerifyEmail({ token }) {
   const [error, seterror] = useState(null);
   const onSubmit = (e) => {
     e.preventDefault();
-    setloading(true);
     Accounts.verifyEmail(token, (err) => {
       seterror(err);
     });
