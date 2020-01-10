@@ -35,7 +35,6 @@ function SingleProjectPage({ ready, project }) {
       </div>
     );
   }
-  console.log(project);
   return (
     <div className="container-fluid mt-3">
       <h4>{project.title}</h4>
