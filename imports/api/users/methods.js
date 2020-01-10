@@ -32,3 +32,13 @@ const facebookUser = new ValidatedMethod({
     }
   },
 });
+
+const resendVerification = new ValidatedMethod({
+  name: 'users.resendVerification',
+  validate: null,
+  run() {
+    if (this.userId) {
+      Accounts.sendVerificationEmail(this.userId);
+    }
+  },
+});
