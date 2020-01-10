@@ -13,8 +13,6 @@ function TodoCardModal({ todo }) {
   const {
     title,
     description,
-    createdAt,
-    dueDate,
     creatorName,
     assignedId,
     assignedName,
@@ -36,10 +34,11 @@ function TodoCardModal({ todo }) {
   const removeTodo = (e) => {
     e.preventDefault();
     if (confirm('Are you sure? this can not be undone!')) {
-      $(`#Modal${todo._id}`).modal('hide');
       Meteor.call('todo.remove', { todoId: todo._id }, (err) => {
         if (err) {
           alert(err);
+        } else {
+          $(`#Modal${todo._id}`).modal('hide');
         }
       });
     }

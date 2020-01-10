@@ -43,7 +43,7 @@ Meteor.startup(function() {
 // Email Temaplates
 
 Accounts.emailTemplates.siteName = 'To - Doer';
-Accounts.emailTemplates.from = 'Todoer <team@dct.com>';
+Accounts.emailTemplates.from = 'Todoer <team@todoer.com>';
 
 Accounts.emailTemplates.enrollAccount.subject = (user) => {
   return `Welcome to Todoer, ${user.username}`;
