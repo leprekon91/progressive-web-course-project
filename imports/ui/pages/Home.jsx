@@ -12,7 +12,8 @@ function Home() {
             <div className="col-12 d-flex">
               Welcome,&nbsp;&nbsp;&nbsp;
               <UserAvatar />
-              &nbsp;{!!Meteor.user() && Meteor.user().username}
+              &nbsp;
+              {!!Meteor.user() && Meteor.user().username}
             </div>
           </div>
           <div className="row">
