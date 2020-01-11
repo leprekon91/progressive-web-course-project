@@ -7,16 +7,12 @@ import Routes from './layout/Routes';
 const App = ({ loggingIn, authenticated, conn }) => {
   if (!conn.connected && conn.retryCount === 0) {
     return (
-      <div className="jumbotron text-center text-white bg-danger m-3">
+      <div className="jumbotron text-center text-white bg-info m-3">
         <h1 className="display-4">
-          <i className="fas fa-exclamation-triangle" />
+          <i className="fas fa-spinner" />
           <br />
           Loading
         </h1>
-        <p className="lead">
-          Your device has lost connection to the server. Please reload the page or contact our
-          costumer support.
-        </p>
       </div>
     );
   }
