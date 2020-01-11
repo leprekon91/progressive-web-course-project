@@ -17,18 +17,12 @@ const googleUser = new ValidatedMethod({
   },
 });
 
-const facebookUser = new ValidatedMethod({
-  name: 'users.facebookUser',
+const resendVerification = new ValidatedMethod({
+  name: 'users.resendVerification',
   validate: null,
   run() {
-    const user = Meteor.user();
-    if (user) {
-      const { email } = user.services.facebook;
-      const username = email.split('@')[0];
-      Meteor.users.update(
-        { _id: user._id },
-        { $set: { username, emails: [{ address: email, verified: true }] } },
-      );
+    if (this.userId) {
+      Accounts.sendVerificationEmail(this.userId);
     }
   },
 });

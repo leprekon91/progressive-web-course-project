@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useRouteMatch } from 'react-router-dom';
+import TodoCounter from '../components/TodoCounter';
 
 function CustomLink({ label, to, activeOnlyWhenExact }) {
   const match = useRouteMatch({
@@ -14,6 +15,8 @@ function CustomLink({ label, to, activeOnlyWhenExact }) {
         <span>
           <i className="fas fa-clipboard-check" />
           {` ${label}`}
+          &nbsp;
+          <TodoCounter />
         </span>
       );
       break;
@@ -43,7 +46,7 @@ function CustomLink({ label, to, activeOnlyWhenExact }) {
       break;
     case 'Logout':
       link = (
-        <span >
+        <span>
           <i className="fas fa-sign-out-alt" />
           {` ${label}`}
         </span>
