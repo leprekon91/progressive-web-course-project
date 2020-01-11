@@ -10,8 +10,9 @@ const createToDo = new ValidatedMethod({
     title: { type: String },
     description: { type: String, optional: true },
     dueDate: { type: Date },
+    projectId: { type: String, optional: true },
   }).validator(),
-  run({ title, description, dueDate }) {
+  run({ title, description, dueDate, projectId }) {
     const id = Todos.insert({
       title,
       description: description || '',
@@ -23,6 +24,9 @@ const createToDo = new ValidatedMethod({
       creatorName: Meteor.user().username,
       status: 'todo',
     });
+    if (!!projectId && projectId !== 'false') {
+      Projects.update({ _id: projectId, managerId: this.userId }, { $push: { todos: id } });
+    }
     return id;
   },
 });
@@ -32,6 +36,13 @@ const deleteTodo = new ValidatedMethod({
   validate: new SimpleSchema({ todoId: { type: String } }).validator(),
   run({ todoId }) {
     Todos.remove({ _id: todoId, creatorId: this.userId });
+    const project = Projects.findOne({ todos: todoId });
+    if (project) {
+      const { _id: projectId, todos } = project;
+      const todoIndex = todos.indexOf(todoId);
+      todos.splice(todoIndex, 1);
+      Projects.update({ _id: projectId }, { $set: { todos } });
+    }
   },
 });
 
