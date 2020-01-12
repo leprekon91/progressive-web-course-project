@@ -24,21 +24,11 @@ ServiceConfiguration.configurations.upsert(
   },
 );
 
-Meteor.startup(function() {
+Meteor.startup(() => {
   if (Meteor.settings.email.enabled) {
     process.env.MAIL_URL = Meteor.settings.email.smtpUrl;
-
-    if (Meteor.isServer) {
-      Email.send({
-        from: 'from@mailinator.com',
-        to: 'reist2009@gmail.com',
-        subject: 'Subject',
-        text: 'Here is some text - Mail is working!'
-      });
-    }
   }
 });
-
 
 // Email Temaplates
 
