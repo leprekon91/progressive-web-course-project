@@ -38,9 +38,7 @@ function TodoColumn({ type, todos, ready }) {
 }
 
 export default withTracker(({ type, todosIds }) => {
-  console.log(todosIds);
   const ready = Meteor.subscribe('todos.byProject', { todos: todosIds, type }).ready();
   const todos = Todos.find({ _id: { $in: todosIds }, status: type }).fetch();
-  console.table(todos);
   return { type, todos, ready };
 })(TodoColumn);

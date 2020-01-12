@@ -9,8 +9,11 @@ function Home() {
       {Meteor.userId() ? (
         <>
           <div className="row">
-            <div className="col-12">
+            <div className="col-12 d-flex">
+              Welcome,&nbsp;&nbsp;&nbsp;
               <UserAvatar />
+              &nbsp;
+              {!!Meteor.user() && Meteor.user().username}
             </div>
           </div>
           <div className="row">
