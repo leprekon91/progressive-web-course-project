@@ -3,18 +3,19 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
 
-function Signup() {
+function Signup({ loggingIn, authenticated }) {
   const [username, setusername] = useState('');
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
   const [confirm, setconfirm] = useState('');
   const [loading, setloading] = useState(false);
-  const [signedUp, setSignedUp] = useState(!!Meteor.userId());
 
-  if (signedUp) {
+  if (!loggingIn && authenticated) {
     return <Redirect to="/" />;
   }
+
   const onSubmit = (e) => {
     e.preventDefault();
     setloading(true);
@@ -23,8 +24,6 @@ function Signup() {
         if (err) {
           // eslint-disable-next-line no-alert
           alert(err);
-        } else {
-          setSignedUp(true);
         }
         setloading(false);
       });
@@ -43,7 +42,6 @@ function Signup() {
             alert(error);
           }
         });
-        setSignedUp(true);
       }
     });
   };
@@ -125,7 +123,11 @@ function Signup() {
                   Sign up
                 </button>
                 <hr className="my-4" />
-                <button className="btn btn-lg btn-google btn-block text-uppercase" type="button">
+                <button
+                  className="btn btn-lg btn-google btn-block text-uppercase"
+                  type="button"
+                  onClick={googleSignIn}
+                >
                   <i className="fab fa-google mr-2" />
                   Sign up with Google
                 </button>
@@ -138,4 +140,11 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default withTracker(({ token }) => {
+  const loggingIn = Meteor.loggingIn();
+  return {
+    token,
+    loggingIn,
+    authenticated: !loggingIn && !!Meteor.userId(),
+  };
+})(Signup);

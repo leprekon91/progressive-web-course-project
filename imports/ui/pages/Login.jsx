@@ -17,11 +17,12 @@ function Login() {
   const onSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    Meteor.loginWithPassword(username, password, (err) => {
+    Meteor.loginWithPassword(username, password, (err, res) => {
       if (err) {
         // eslint-disable-next-line no-alert
         alert(err);
       } else {
+        console.log(res);
         setLogedIn(true);
       }
       setLoading(false);
