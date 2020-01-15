@@ -3,12 +3,12 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
 
-function ResetPassword({ token }) {
+function ResetPassword({ token, loggingIn, authenticated }) {
   const [password, setpassword] = useState('');
   const [confirm, setconfirm] = useState('');
   const [loading, setloading] = useState(false);
-  const [passwordIsReset, setpasswordIsReset] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -17,14 +17,12 @@ function ResetPassword({ token }) {
         setloading(true);
         if (err) {
           alert(err);
-        } else {
-          setpasswordIsReset(true);
         }
         setloading(false);
       });
     }
   };
-  if (passwordIsReset) {
+  if (!loggingIn && authenticated) {
     return <Redirect to="/" />;
   }
 
@@ -73,4 +71,11 @@ function ResetPassword({ token }) {
   );
 }
 
-export default ResetPassword;
+export default withTracker(({ token }) => {
+  const loggingIn = Meteor.loggingIn();
+  return {
+    token,
+    loggingIn,
+    authenticated: !loggingIn && !!Meteor.userId(),
+  };
+})(ResetPassword);
