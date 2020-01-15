@@ -125,7 +125,11 @@ function Signup() {
                   Sign up
                 </button>
                 <hr className="my-4" />
-                <button className="btn btn-lg btn-google btn-block text-uppercase" type="button">
+                <button
+                  className="btn btn-lg btn-google btn-block text-uppercase"
+                  type="button"
+                  onClick={googleSignIn}
+                >
                   <i className="fab fa-google mr-2" />
                   Sign up with Google
                 </button>
