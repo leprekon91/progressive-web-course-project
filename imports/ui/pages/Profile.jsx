@@ -29,7 +29,7 @@ function Profile({ user }) {
       if (err) {
         alert(err);
       } else {
-        alert(`An email was sent to ${email}, with a link to reset password.`);
+        alert(`An email was sent to ${email.address}, with a link to reset password.`);
       }
       setchangingPass(false);
     });
