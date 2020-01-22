@@ -13,10 +13,9 @@ function CustomLink({ label, to, activeOnlyWhenExact }) {
     case 'My Todos':
       link = (
         <span>
-          <i className="fas fa-clipboard-check" />
+          <TodoCounter />
           {` ${label}`}
           &nbsp;
-          <TodoCounter />
         </span>
       );
       break;

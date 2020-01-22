@@ -40,8 +40,6 @@ function Routes({ loggingIn, authenticated }) {
             component={({ match }) => <VerifyEmail token={match.params.token} />}
           />
           <Authenticated
-            loggingIn={loggingIn}
-            authenticated={authenticated}
             path="/todos"
             component={() => (
               <>
@@ -51,8 +49,6 @@ function Routes({ loggingIn, authenticated }) {
             )}
           />
           <Authenticated
-            loggingIn={loggingIn}
-            authenticated={authenticated}
             exact
             path="/projects"
             component={() => (
@@ -63,8 +59,6 @@ function Routes({ loggingIn, authenticated }) {
             )}
           />
           <Authenticated
-            loggingIn={loggingIn}
-            authenticated={authenticated}
             exact
             path="/project/:projectId"
             component={({ match }) => (
@@ -75,8 +69,6 @@ function Routes({ loggingIn, authenticated }) {
             )}
           />
           <Authenticated
-            loggingIn={loggingIn}
-            authenticated={authenticated}
             exact
             path="/profile"
             component={() => (

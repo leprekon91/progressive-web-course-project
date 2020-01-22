@@ -1,11 +1,11 @@
 accounts-base@1.5.0
 accounts-google@1.3.3
 accounts-oauth@1.1.16
-accounts-password@1.5.2
-aldeed:collection2@3.0.5
+accounts-password@1.5.3
+aldeed:collection2@3.0.6
 allow-deny@1.1.0
 autoupdate@1.6.0
-babel-compiler@7.5.0
+babel-compiler@7.5.1
 babel-runtime@1.5.0
 base64@1.0.12
 binary-heap@1.0.11
@@ -23,7 +23,7 @@ ddp-server@2.3.0
 deps@1.0.12
 diff-sequence@1.1.1
 dynamic-import@0.5.1
-ecmascript@0.14.0
+ecmascript@0.14.1
 ecmascript-runtime@0.7.0
 ecmascript-runtime-client@0.10.0
 ecmascript-runtime-server@0.9.0
@@ -53,7 +53,7 @@ minifier-js@2.6.0
 minimongo@1.4.5
 mobile-experience@1.0.5
 mobile-status-bar@1.0.14
-modern-browsers@0.1.4
+modern-browsers@0.1.5
 modules@0.15.0
 modules-runtime@0.12.0
 mongo@1.8.0
@@ -86,8 +86,8 @@ static-html@1.2.2
 templating-tools@1.1.2
 tmeasday:check-npm-versions@0.3.2
 tracker@1.2.0
-typescript@3.7.2
+typescript@3.7.4
 underscore@1.0.10
 url@1.2.0
-webapp@1.8.0
+webapp@1.8.2
 webapp-hashing@1.0.9

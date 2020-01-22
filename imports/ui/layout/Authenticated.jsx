@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
 
 const Authenticated = ({ loggingIn, authenticated, component, ...rest }) => (
   <Route
@@ -27,4 +28,10 @@ Authenticated.propTypes = {
   component: PropTypes.func.isRequired,
 };
 
-export default Authenticated;
+export default withTracker(() => {
+  const loggingIn = Meteor.loggingIn();
+  return {
+    loggingIn,
+    authenticated: !loggingIn && !!Meteor.userId(),
+  };
+})(Authenticated);

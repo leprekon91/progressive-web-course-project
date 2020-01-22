@@ -5,24 +5,27 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 
-function ResetPassword({ token, loggingIn, authenticated }) {
+function ResetPassword({ token }) {
   const [password, setpassword] = useState('');
   const [confirm, setconfirm] = useState('');
   const [loading, setloading] = useState(false);
-
-  const onSubmit = (e) => {
+  const [redirect, setRedirect] = useState(false);
+  const onSubmit = e => {
     e.preventDefault();
     if (password === confirm) {
-      Accounts.resetPassword(token, password, (err) => {
+      Accounts.resetPassword(token, password, err => {
         setloading(true);
         if (err) {
           alert(err);
+          setloading(false);
+        } else {
+          setRedirect(true);
         }
-        setloading(false);
       });
     }
   };
-  if (!loggingIn && authenticated) {
+
+  if (redirect) {
     return <Redirect to="/" />;
   }
 
@@ -41,7 +44,7 @@ function ResetPassword({ token, loggingIn, authenticated }) {
                     className="form-control"
                     placeholder="Password"
                     value={password}
-                    onChange={(e) => setpassword(e.target.value)}
+                    onChange={e => setpassword(e.target.value)}
                     required
                   />
                   <label htmlFor="inputPassword">Password</label>
@@ -54,13 +57,20 @@ function ResetPassword({ token, loggingIn, authenticated }) {
                     className="form-control"
                     placeholder="Confirm Password"
                     value={confirm}
-                    onChange={(e) => setconfirm(e.target.value)}
+                    onChange={e => setconfirm(e.target.value)}
                     required
                   />
                   <label htmlFor="inputConfirm">Confirm Password</label>
                 </div>
-                <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
-                  {loading ? <i className="fas fa-spinner" /> : 'Reset Password'}
+                <button
+                  className="btn btn-lg btn-primary btn-block text-uppercase"
+                  type="submit"
+                >
+                  {loading ? (
+                    <i className="fas fa-spinner" />
+                  ) : (
+                    'Reset Password'
+                  )}
                 </button>
               </form>
             </div>
@@ -76,6 +86,6 @@ export default withTracker(({ token }) => {
   return {
     token,
     loggingIn,
-    authenticated: !loggingIn && !!Meteor.userId(),
+    authenticated: !loggingIn && !!Meteor.userId()
   };
 })(ResetPassword);

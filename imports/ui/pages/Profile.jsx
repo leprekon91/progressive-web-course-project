@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -12,7 +13,7 @@ function Profile({ user }) {
   const email = user.emails[0];
   const resend = () => {
     setloading(true);
-    Meteor.call('users.resendVerification', (err) => {
+    Meteor.call('users.resendVerification', err => {
       if (err) {
         alert(err);
       }
@@ -20,11 +21,24 @@ function Profile({ user }) {
     });
   };
 
-  const changePassword = (e) => {
+  const addPassword = e => {
+    e.preventDefault();
+    setchangingPass(true);
+
+    Accounts.forgotPassword({ email: email.address }, err => {
+      if (err) {
+        alert(err);
+      } else {
+        alert(`An email was sent to ${email}, with a link to reset password.`);
+      }
+      setchangingPass(false);
+    });
+  };
+  const changePassword = e => {
     e.preventDefault();
     if (newpass === confirmpass) {
       setchangingPass(true);
-      Accounts.changePassword(oldpass, newpass, (err) => {
+      Accounts.changePassword(oldpass, newpass, err => {
         if (err) {
           alert(err);
         } else {
@@ -41,7 +55,10 @@ function Profile({ user }) {
     <div className="container-fluid mt-3">
       <div className="row">
         <div className="col">
-          <div className="alert alert-light d-flex justify-content-start align-center" role="alert">
+          <div
+            className="alert alert-light d-flex justify-content-start align-center"
+            role="alert"
+          >
             <UserAvatar size={50} />
             &nbsp;
             <span className="m-3">{Meteor.user().username}</span>
@@ -52,7 +69,9 @@ function Profile({ user }) {
         <li className="list-group-item" key={email.address}>
           {email.address}
           <span
-            className={`badge badge-${email.verified ? 'success' : 'secondary'} float-right m-2`}
+            className={`badge badge-${
+              email.verified ? 'success' : 'secondary'
+            } float-right m-2`}
           >
             {email.verified ? 'verified' : 'not verified'}
           </span>
@@ -61,48 +80,72 @@ function Profile({ user }) {
             className={`float-right btn btn-${!loading ? 'default' : 'info'}`}
             onClick={resend}
           >
-            {loading ? <i className="fas fa-spinner" /> : <i className="fas fa-paper-plane" />}
+            {loading ? (
+              <i className="fas fa-spinner" />
+            ) : (
+              <i className="fas fa-paper-plane" />
+            )}
             &nbsp;
             {!loading ? 'Resend Verification Email' : 'Sending Email'}
           </button>
         </li>
       </ul>
 
-      <form className="p-3 card" onSubmit={changePassword}>
-        <div className="card-body">
-          Change your password:
-          <input
+      {!!user.services.password ? (
+        <form className="p-3 card" onSubmit={changePassword}>
+          <div className="card-body">
+            Change your password:
+            <input
+              disabled={changingPass}
+              value={oldpass}
+              onChange={e => setoldpass(e.target.value)}
+              className="form-control m-1"
+              type="password"
+              required
+              placeholder="Old Password"
+            />
+            <input
+              disabled={changingPass}
+              value={newpass}
+              onChange={e => setnewpass(e.target.value)}
+              className="form-control m-1"
+              type="password"
+              required
+              placeholder="New Password"
+            />
+            <input
+              disabled={changingPass}
+              value={confirmpass}
+              onChange={e => setconfirmpass(e.target.value)}
+              className="form-control m-1"
+              type="password"
+              required
+              placeholder="Confirm Password"
+            />
+          </div>
+          <button
             disabled={changingPass}
-            value={oldpass}
-            onChange={(e) => setoldpass(e.target.value)}
-            className="form-control m-1"
-            type="password"
-            required
-            placeholder="Old Password"
-          />
-          <input
+            type="submit"
+            className="btn btn-link card-link"
+          >
+            Send Reset Password Email
+          </button>
+        </form>
+      ) : (
+        <form className="p-3 card" onSubmit={addPassword}>
+          <div className="card-body">
+            Add your password by sending yourself the email with the link to set
+            it:
+          </div>
+          <button
             disabled={changingPass}
-            value={newpass}
-            onChange={(e) => setnewpass(e.target.value)}
-            className="form-control m-1"
-            type="password"
-            required
-            placeholder="New Password"
-          />
-          <input
-            disabled={changingPass}
-            value={confirmpass}
-            onChange={(e) => setconfirmpass(e.target.value)}
-            className="form-control m-1"
-            type="password"
-            required
-            placeholder="Confirm Password"
-          />
-        </div>
-        <button disabled={changingPass} type="submit" className="btn btn-link card-link">
-          Submit
-        </button>
-      </form>
+            type="submit"
+            className="btn btn-link card-link"
+          >
+            Submit
+          </button>
+        </form>
+      )}
     </div>
   );
 }
