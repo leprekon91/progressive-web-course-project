@@ -12,12 +12,12 @@ Meteor.startup(() => {
     });
     Accounts.createUser({
       username: 'Yossi',
-      email: 'Yossi@todoer.co.il',
+      email: 'Yossi@hotmail.com',
       password: 'sdfg###',
     });
     Accounts.createUser({
       username: 'Haim',
-      email: 'Haim@todoer.co.il',
+      email: 'Haim@msn.com',
       password: 'dfdfg!!',
     });
   }
